@@ -47,4 +47,70 @@ class Pages extends BaseController
         ];
         return view('pages/company_info', $data);
     }
+
+    /**
+     * Menampilkan halaman Login
+     */
+    public function login()
+    {
+        $data = [
+            'title' => 'Login | TropicalShop'
+        ];
+        return view('pages/login', $data);
+    }
+
+    /**
+     * Menampilkan halaman Register
+     */
+    public function register()
+    {
+        $data = [
+            'title' => 'Daftar Akun | TropicalShop'
+        ];
+        return view('pages/register', $data);
+    }
+
+    /**
+     * Menampilkan halaman Cart (Keranjang)
+     */
+    public function cart()
+    {
+        $data = [
+            'title' => 'Keranjang Belanja | TropicalShop'
+        ];
+        return view('pages/cart', $data);
+    }
+
+    /**
+     * Menampilkan halaman Checkout & Pembayaran
+     */
+    public function checkout()
+    {
+        $data = [
+            'title' => 'Checkout Pemesanan | TropicalShop'
+        ];
+        return view('pages/checkout', $data);
+    }
+
+    /**
+     * Menampilkan halaman Konfirmasi Pembayaran
+     */
+    public function confirmPayment()
+    {
+        $data = [
+            'title' => 'Konfirmasi Pembayaran | TropicalShop'
+        ];
+        return view('pages/confirm_payment', $data);
+    }
+
+    /**
+     * Menampilkan halaman Lacak Pengiriman
+     */
+    public function shippingStatus()
+    {
+        $data = [
+            'title' => 'Status Pengiriman | TropicalShop'
+        ];
+        return view('pages/shipping_status', $data);
+    }
 } 

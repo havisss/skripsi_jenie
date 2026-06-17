@@ -150,7 +150,7 @@
         <!-- Product 7 -->
         <div class="product-card reveal">
             <div class="product-image-link">
-                <img src="https://images.unsplash.com/photo-1542838334-42cf3558a2d1?q=80&w=1974&auto=format&fit=crop" alt="Kain Motif Flora Bali">
+                <img src="<?= base_url('images/kategori-kain.png') ?>" alt="Kain Motif Flora Bali">
             </div>
             <div class="product-info">
                 <h3>Kain Motif Flora Bali</h3>
@@ -167,7 +167,7 @@
         <!-- Product 8 -->
         <div class="product-card reveal delay-1">
             <div class="product-image-link">
-                <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=1964&auto=format&fit=crop" alt="Setelan Piyama Rayon">
+                <img src="<?= base_url('images/kategori-piyama.png') ?>" alt="Setelan Piyama Rayon">
             </div>
             <div class="product-info">
                 <h3>Setelan Piyama Rayon</h3>
@@ -184,7 +184,7 @@
         <!-- Product 9 -->
         <div class="product-card reveal delay-2">
             <div class="product-image-link">
-                <img src="https://images.unsplash.com/photo-1620799140408-edc6d5f9650d?q=80&w=1972&auto=format&fit=crop" alt="Kain Pantai Sunset">
+                <img src="<?= base_url('images/kategori-mukena.png') ?>" alt="Kain Pantai Sunset">
             </div>
             <div class="product-info">
                 <h3>Kain Pantai Sunset</h3>

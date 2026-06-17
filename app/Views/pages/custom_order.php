@@ -4,7 +4,7 @@
 
 <div class="main-content">
     <!-- Hero Banner -->
-    <section class="custom-hero">
+    <section class="custom-hero" style="background-image: url('<?= base_url('images/custom_hero_1781629681878.png') ?>');">
         <div class="custom-hero-content reveal">
             <h1>Ciptakan Desain Anda Sendiri</h1>
             <p>Pilih produk dasar, tentukan ukuran pengerjaan, dan unggah berkas motif orisinal Anda untuk langsung diproses oleh tim kami.</p>

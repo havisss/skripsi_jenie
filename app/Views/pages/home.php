@@ -39,7 +39,7 @@
             </a>
             <a href="<?= base_url('/catalog') ?>" class="category-card reveal delay-1">
                 <div class="img-wrapper">
-                    <img src="<?= base_url('images/product_2_1781629315810.png') ?>" alt="Setelan Piyama">
+                    <img src="<?= base_url('images/kategori-piyama.png') ?>" alt="Setelan Piyama">
                 </div>
                 <div class="category-title">
                     <h3>Pakaian Jadi</h3>

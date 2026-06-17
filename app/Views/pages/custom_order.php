@@ -69,12 +69,13 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                             <p style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--text-color); margin-bottom: 0.2rem;">Klik untuk pilih berkas gambar</p>
                             <span style="color: var(--text-light); font-size: 0.8rem;">PNG, JPG, PDF (Maks 10MB)</span>
+                            <input type="file" name="file_desain" style="display:none;">
                         </div>
                     </div>
 
                     <div class="co-form-group">
                         <label>Instruksi Tambahan</label>
-                        <input type="text" class="co-input" placeholder="Tuliskan catatan khusus pengerjaan Anda...">
+                        <input type="text" name="catatan" class="co-input" placeholder="Tuliskan catatan khusus pengerjaan Anda...">
                     </div>
                 </div>
 
@@ -178,7 +179,7 @@
 
         const submitBtn = document.getElementById('co-submit-btn');
         submitBtn.addEventListener('click', function() {
-            alert('Pesanan kustom dikirim! Kami akan menghubungi Anda untuk konfirmasi harga.');
+            window.location.href = '<?= base_url('/checkout') ?>';
         });
     });
 </script>

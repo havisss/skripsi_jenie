@@ -57,9 +57,9 @@
                 </form>
             </div>
             
-            <a href="<?= base_url('/cart') ?>" class="cf-continue">
+            <a href="<?= base_url('/catalog') ?>" class="cf-continue">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Kembali ke Keranjang
+                Kembali ke Katalog
             </a>
         </div>
 
@@ -118,8 +118,8 @@
 <script>
 function handleCheckout(event) {
     event.preventDefault();
-    alert('Pemesanan Berhasil Disimpan!\n\nSilakan lakukan transfer sebesar Rp 638.000 ke salah satu rekening Bank Bali Art House tertera. Anda akan dialihkan ke halaman Konfirmasi Pembayaran untuk mengunggah bukti transfer.');
-    window.location.href = '<?= base_url('/confirm-payment') ?>';
+    alert('Pemesanan Berhasil Disimpan!\n\nSilakan lakukan transfer sebesar Rp 638.000 ke salah satu rekening Bank Bali Art House tertera. Anda akan dialihkan ke halaman Riwayat Transaksi.');
+    window.location.href = '<?= base_url('/transaction-history') ?>';
 }
 </script>
 

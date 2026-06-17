@@ -241,33 +241,40 @@
 
         <h1 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 500; margin-bottom: 1.8rem; text-align: center; letter-spacing: 1px;">Daftar Akun</h1>
 
-        <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Pendaftaran Berhasil! Silakan Masuk.'); window.location.href='<?= base_url('/login') ?>';">
+        <?php if(session()->getFlashdata('error_register')): ?>
+            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 1rem; border: 1px solid #f5c6cb; text-align: left; font-size: 0.85rem;">
+                <?= session()->getFlashdata('error_register') ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('auth/processRegister') ?>" method="POST">
+            <?= csrf_field() ?>
             <div class="input-group">
                 <label>Nama Lengkap</label>
-                <input type="text" required placeholder="Nama Lengkap Anda">
+                <input type="text" name="nama_pelanggan" required placeholder="Nama Lengkap Anda" value="<?= old('nama_pelanggan') ?>">
             </div>
 
             <div class="form-row">
                 <div class="input-group" style="margin-bottom: 0;">
                     <label>Alamat E-mail</label>
-                    <input type="email" required placeholder="nama@email.com">
+                    <input type="email" name="email" required placeholder="nama@email.com" value="<?= old('email') ?>">
                 </div>
 
                 <div class="input-group" style="margin-bottom: 0;">
                     <label>Nomor Telepon</label>
-                    <input type="tel" required placeholder="08XXXXXXXXXX">
+                    <input type="tel" name="no_telpon" required placeholder="08XXXXXXXXXX" value="<?= old('no_telpon') ?>">
                 </div>
             </div>
             
             <div class="form-row">
                 <div class="input-group" style="margin-bottom: 0;">
                     <label>Kata Sandi</label>
-                    <input type="password" required placeholder="••••••••">
+                    <input type="password" name="password" required placeholder="••••••••">
                 </div>
 
                 <div class="input-group" style="margin-bottom: 0;">
                     <label>Konfirmasi Kata Sandi</label>
-                    <input type="password" required placeholder="••••••••">
+                    <input type="password" name="confirm_password" required placeholder="••••••••">
                 </div>
             </div>
 

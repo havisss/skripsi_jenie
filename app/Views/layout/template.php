@@ -39,12 +39,15 @@
         </div>
     </div>
 
+    <?php if(!isset($hide_nav)): ?>
     <?= $this->include('layout/navbar') ?>
+    <?php endif; ?>
 
     <main class="page-wrapper">
         <?= $this->renderSection('content') ?>
     </main>
 
+    <?php if(!isset($hide_nav)): ?>
     <!-- Luxury Footer -->
     <footer class="footer" style="position: relative; text-align: center; padding: 4rem 2rem;">
         <div style="margin-bottom: 1.2rem;">
@@ -57,7 +60,7 @@
                 <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="0.8" />
                 <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="0.8" />
                 <path d="M6 6c1.2 1.2 2 2 2.8 1.6s.8-.8.8-1.2-1-1.2-2-2S6.5 5.2 6 6z" stroke-width="0.6" opacity="0.7" />
-                <path d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8 1.2 1 1.2 2 2 1.5-1.2 2-2z" stroke-width="0.6" opacity="0.7" />
+                <path d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8-1.2 1-1.2 2-2 1.5-1.2 2-2z" stroke-width="0.6" opacity="0.7" />
                 <path d="M18 6c-1.2 1.2-2 2-2.8 1.6s-.8-.8-.8-1.2 1-1.2 2-2 1.5 1.2 2 2z" stroke-width="0.6" opacity="0.7" />
                 <path d="M6 18c1.2-1.2 2-2 2.8-1.6s.8.8.8 1.2-1 1.2-2-2-1.5-1.2-2 2z" stroke-width="0.6" opacity="0.7" />
                 <circle cx="12" cy="12" r="1.2" fill="var(--primary-color)" />
@@ -76,6 +79,7 @@
         <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; color: var(--text-light);">&copy; 2026 Bali Art House Print</p>
         <p style="font-family: var(--font-heading); font-style: italic; color: var(--primary-color); font-size: 1.1rem; margin-top: 0.5rem;">Handcrafted in the Island of Gods, Bali</p>
     </footer>
+    <?php endif; ?>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -107,6 +111,25 @@
                 qtyInput.dispatchEvent(new Event('change'));
             }
         };
+
+        // --- 5. Mobile Menu Toggle ---
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navCollapse = document.querySelector('.nav-collapse');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const closeIcon = document.querySelector('.close-icon');
+
+        if (menuToggle && navCollapse) {
+            menuToggle.addEventListener('click', function() {
+                navCollapse.classList.toggle('active');
+                if (navCollapse.classList.contains('active')) {
+                    hamburgerIcon.style.display = 'none';
+                    closeIcon.style.display = 'block';
+                } else {
+                    hamburgerIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+        }
     });
 
     // --- 3. Navbar Scrolling ---
@@ -149,6 +172,87 @@
             if (preloader) preloader.classList.add('loaded');
         }, 150);
     });
+
+    // --- Off-Canvas Cart Logic ---
+    function toggleCart() {
+        document.getElementById('offcanvas-cart').classList.toggle('active');
+        document.getElementById('offcanvas-overlay').classList.toggle('active');
+    }
+
+    function openCart(id, name, price, img) {
+        // In a real app, this would use AJAX to update the backend cart table
+        // For now, we simulate adding to cart
+        const cartItems = document.getElementById('cart-items-container');
+        
+        // Remove empty state if present
+        const emptyState = document.getElementById('cart-empty-state');
+        if(emptyState) emptyState.style.display = 'none';
+
+        // Add item HTML
+        const itemHtml = `
+            <div class="cart-item" id="cart-item-${id}">
+                <img src="${img}" alt="${name}">
+                <div class="cart-item-details">
+                    <h4>${name}</h4>
+                    <p>Rp ${price.toLocaleString('id-ID')}</p>
+                    <div class="cart-qty-control">
+                        <button onclick="updateCartQty(${id}, -1)">-</button>
+                        <input type="text" value="1" readonly id="qty-${id}">
+                        <button onclick="updateCartQty(${id}, 1)">+</button>
+                    </div>
+                </div>
+                <button class="cart-item-remove" onclick="removeCartItem(${id})">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+            </div>
+        `;
+        
+        // Append item
+        cartItems.insertAdjacentHTML('beforeend', itemHtml);
+        
+        // Open the cart
+        toggleCart();
+    }
+
+    function updateCartQty(id, change) {
+        const input = document.getElementById(`qty-${id}`);
+        if(input) {
+            let val = parseInt(input.value) + change;
+            if(val > 0) input.value = val;
+        }
+    }
+
+    function removeCartItem(id) {
+        const item = document.getElementById(`cart-item-${id}`);
+        if(item) item.remove();
+        
+        const cartItems = document.getElementById('cart-items-container');
+        if(cartItems.children.length === 1 && cartItems.children[0].id === 'cart-empty-state') {
+            document.getElementById('cart-empty-state').style.display = 'flex';
+        } else if(cartItems.children.length === 0) {
+             document.getElementById('cart-empty-state').style.display = 'flex';
+        }
+    }
     </script>
+
+    <!-- Off-Canvas Cart HTML -->
+    <div class="offcanvas-overlay" id="offcanvas-overlay" onclick="toggleCart()"></div>
+    <div class="offcanvas-cart" id="offcanvas-cart">
+        <div class="cart-header">
+            <h3>Keranjang Belanja</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        <div class="cart-body" id="cart-items-container">
+            <div id="cart-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-light); text-align: center;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <p>Keranjang Anda kosong</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <a href="<?= base_url('/checkout') ?>" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">Lanjut ke Checkout</a>
+        </div>
+    </div>
 </body>
 </html>

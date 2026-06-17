@@ -265,15 +265,27 @@
         </div>
         <h1 style="font-size: 2rem; margin-bottom: 1.5rem; text-align: center;">Masuk Akun</h1>
 
-        <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Login Berhasil!'); window.location.href='<?= base_url('/') ?>';">
+        <?php if(session()->getFlashdata('error')): ?>
+            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 1rem; border: 1px solid #f5c6cb; text-align: center; font-size: 0.9rem;">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+        <?php if(session()->getFlashdata('success')): ?>
+            <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 1rem; border: 1px solid #c3e6cb; text-align: center; font-size: 0.9rem;">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('auth/processLogin') ?>" method="POST">
+            <?= csrf_field() ?>
             <div class="input-group">
                 <label>Alamat E-mail</label>
-                <input type="email" required placeholder="nama@email.com">
+                <input type="email" name="email" required placeholder="nama@email.com">
             </div>
             
             <div class="input-group">
                 <label>Kata Sandi</label>
-                <input type="password" required placeholder="••••••••">
+                <input type="password" name="password" required placeholder="••••••••">
             </div>
 
             <div class="login-actions">

@@ -87,7 +87,8 @@ class Pages extends BaseController
     public function checkout()
     {
         $data = [
-            'title' => 'Checkout Pemesanan | TropicalShop'
+            'title' => 'Checkout Pemesanan | TropicalShop',
+            'hide_nav' => true
         ];
         return view('pages/checkout', $data);
     }
@@ -112,5 +113,28 @@ class Pages extends BaseController
             'title' => 'Status Pengiriman | TropicalShop'
         ];
         return view('pages/shipping_status', $data);
+    }
+
+    /**
+     * Menampilkan halaman Detail Produk
+     */
+    public function productDetail($id)
+    {
+        $data = [
+            'title' => 'Detail Produk | TropicalShop',
+            'product_id' => $id
+        ];
+        return view('pages/product_detail', $data);
+    }
+
+    /**
+     * Menampilkan halaman Riwayat Transaksi
+     */
+    public function transactionHistory()
+    {
+        $data = [
+            'title' => 'Riwayat Transaksi | TropicalShop'
+        ];
+        return view('pages/transaction_history', $data);
     }
 } 

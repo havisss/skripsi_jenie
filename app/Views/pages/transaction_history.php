@@ -9,18 +9,18 @@
         
         <!-- Transaction Tabs -->
         <div style="display: flex; border-bottom: 1px solid rgba(0,0,0,0.05); background: #fdfdfd;" id="th-tabs">
-            <button class="th-tab active" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 600; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); cursor: pointer;">Semua</button>
-            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Belum Bayar</button>
-            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Pending</button>
-            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Dikirim</button>
-            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Diterima</button>
+            <button class="th-tab active" data-target="all" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 600; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); cursor: pointer;">Semua</button>
+            <button class="th-tab" data-target="belum bayar" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Belum Bayar</button>
+            <button class="th-tab" data-target="pending" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Pending</button>
+            <button class="th-tab" data-target="dikirim" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Dikirim</button>
+            <button class="th-tab" data-target="diterima" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Diterima</button>
         </div>
 
         <!-- Transaction List -->
         <div style="padding: 2rem;">
             
             <!-- Mock Transaction 1 -->
-            <div style="border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="th-item" data-status="dikirim" style="border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
                     <div>
                         <span style="font-weight: 600; font-size: 0.9rem;">TRX-9827361</span>
@@ -45,7 +45,7 @@
             </div>
 
             <!-- Mock Transaction 2 -->
-            <div style="border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 1.5rem;">
+            <div class="th-item" data-status="belum bayar" style="border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; padding: 1.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05);">
                     <div>
                         <span style="font-weight: 600; font-size: 0.9rem;">TRX-9827362</span>
@@ -79,6 +79,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.th-tab');
+    const items = document.querySelectorAll('.th-item');
+
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
             // Remove active state from all
@@ -94,6 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.fontWeight = '600';
             this.style.color = 'var(--primary-color)';
             this.style.borderBottom = '2px solid var(--primary-color)';
+
+            // Filter logic
+            const target = this.getAttribute('data-target');
+            items.forEach(item => {
+                if (target === 'all' || item.getAttribute('data-status') === target) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         });
     });
 });

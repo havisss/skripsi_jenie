@@ -24,7 +24,15 @@
             </div>
         </a>
 
-        <ul class="nav-links">
+        <!-- Hamburger Menu for Mobile -->
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-menu">
+            <ul class="nav-links">
             <li><a href="<?= base_url('/') ?>" class="nav-link <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
             <li><a href="<?= base_url('/catalog') ?>" class="nav-link <?= ($uri == 'catalog' ? 'active' : '') ?>">Catalog</a></li>
             <li><a href="<?= base_url('/custom-order') ?>" class="nav-link <?= ($uri == 'custom-order' ? 'active' : '') ?>">Custom Order</a></li>
@@ -40,6 +48,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 <span>Cart</span>
             </a>
+        </div>
         </div>
     </nav>
 </header>

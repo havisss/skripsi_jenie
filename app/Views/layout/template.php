@@ -133,22 +133,62 @@
     const percentEl = document.querySelector('.preloader-text');
     const preloader = document.querySelector('.preloader');
     
+    // Fast fake progress
     let interval = setInterval(() => {
-        percent += Math.floor(Math.random() * 15) + 5;
+        percent += Math.floor(Math.random() * 25) + 15;
         if (percent >= 90) {
             percent = 90;
             clearInterval(interval);
         }
         if (percentEl) percentEl.textContent = percent + '%';
-    }, 30);
+    }, 15);
 
-    window.addEventListener('load', () => {
+    // Use DOMContentLoaded for much faster visual unblocking instead of waiting for all images
+    document.addEventListener('DOMContentLoaded', () => {
         clearInterval(interval);
         if (percentEl) percentEl.textContent = '100%';
         setTimeout(() => {
             if (preloader) preloader.classList.add('loaded');
-        }, 150);
+            // Remove from DOM after transition to free memory
+            setTimeout(() => {
+                if (preloader) preloader.style.display = 'none';
+            }, 800);
+        }, 50);
     });
+
+    // --- 5. Mobile Menu Toggle ---
+    const mobileBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    if (mobileBtn && navMenu) {
+        mobileBtn.addEventListener('click', () => {
+            mobileBtn.classList.toggle('active');
+            navMenu.classList.toggle('open');
+            // Toggle body scroll lock
+            if (navMenu.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close menu when clicking outside or on a link
+        document.addEventListener('click', (e) => {
+            if (!mobileBtn.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('open')) {
+                mobileBtn.classList.remove('active');
+                navMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBtn.classList.remove('active');
+                navMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    }
     </script>
 </body>
 </html>

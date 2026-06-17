@@ -25,7 +25,7 @@
                 <input type="text" required placeholder="Nama pemilik rekening pengirim" style="width: 100%; padding: 0.75rem 0.8rem; background: var(--bg-color); border: 1px solid rgba(0,0,0,0.12); font-size: 0.9rem; border-radius: 0; color: var(--text-color);">
             </div>
 
-            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.2rem; margin-bottom: 1.5rem;">
+            <div class="responsive-grid-2" style="margin-bottom: 1.5rem;">
                 <div class="input-group" style="margin-bottom: 0;">
                     <label style="display: block; color: var(--text-color); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Bank Tujuan Transfer</label>
                     <select required style="width: 100%; padding: 0.75rem 0.8rem; background: var(--bg-color); border: 1px solid rgba(0,0,0,0.12); font-size: 0.9rem; border-radius: 0; color: var(--text-color); outline: none;">

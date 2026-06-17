@@ -174,65 +174,84 @@
     });
 
     // --- Off-Canvas Cart Logic ---
+    let cartData = JSON.parse(localStorage.getItem('tropical_cart') || '[]');
+
+    function saveCart() {
+        localStorage.setItem('tropical_cart', JSON.stringify(cartData));
+        renderCart();
+    }
+
+    function renderCart() {
+        const cartItems = document.getElementById('cart-items-container');
+        const emptyState = document.getElementById('cart-empty-state');
+        
+        // Clear current items except empty state
+        Array.from(cartItems.children).forEach(child => {
+            if(child.id !== 'cart-empty-state') child.remove();
+        });
+
+        if(cartData.length === 0) {
+            if(emptyState) emptyState.style.display = 'flex';
+            return;
+        }
+
+        if(emptyState) emptyState.style.display = 'none';
+
+        cartData.forEach(item => {
+            const itemHtml = `
+                <div class="cart-item" id="cart-item-${item.id}">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>Rp ${item.price.toLocaleString('id-ID')}</p>
+                        <div class="cart-qty-control">
+                            <button onclick="updateCartQty(${item.id}, -1)">-</button>
+                            <input type="text" value="${item.qty}" readonly id="qty-${item.id}">
+                            <button onclick="updateCartQty(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeCartItem(${item.id})">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                </div>
+            `;
+            cartItems.insertAdjacentHTML('beforeend', itemHtml);
+        });
+    }
+
     function toggleCart() {
         document.getElementById('offcanvas-cart').classList.toggle('active');
         document.getElementById('offcanvas-overlay').classList.toggle('active');
     }
 
     function openCart(id, name, price, img) {
-        // In a real app, this would use AJAX to update the backend cart table
-        // For now, we simulate adding to cart
-        const cartItems = document.getElementById('cart-items-container');
-        
-        // Remove empty state if present
-        const emptyState = document.getElementById('cart-empty-state');
-        if(emptyState) emptyState.style.display = 'none';
-
-        // Add item HTML
-        const itemHtml = `
-            <div class="cart-item" id="cart-item-${id}">
-                <img src="${img}" alt="${name}">
-                <div class="cart-item-details">
-                    <h4>${name}</h4>
-                    <p>Rp ${price.toLocaleString('id-ID')}</p>
-                    <div class="cart-qty-control">
-                        <button onclick="updateCartQty(${id}, -1)">-</button>
-                        <input type="text" value="1" readonly id="qty-${id}">
-                        <button onclick="updateCartQty(${id}, 1)">+</button>
-                    </div>
-                </div>
-                <button class="cart-item-remove" onclick="removeCartItem(${id})">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                </button>
-            </div>
-        `;
-        
-        // Append item
-        cartItems.insertAdjacentHTML('beforeend', itemHtml);
-        
-        // Open the cart
+        let existing = cartData.find(item => item.id == id);
+        if(existing) {
+            existing.qty += 1;
+        } else {
+            cartData.push({ id, name, price, img, qty: 1 });
+        }
+        saveCart();
         toggleCart();
     }
 
     function updateCartQty(id, change) {
-        const input = document.getElementById(`qty-${id}`);
-        if(input) {
-            let val = parseInt(input.value) + change;
-            if(val > 0) input.value = val;
+        let item = cartData.find(item => item.id == id);
+        if(item) {
+            item.qty += change;
+            if(item.qty < 1) item.qty = 1;
+            saveCart();
         }
     }
 
     function removeCartItem(id) {
-        const item = document.getElementById(`cart-item-${id}`);
-        if(item) item.remove();
-        
-        const cartItems = document.getElementById('cart-items-container');
-        if(cartItems.children.length === 1 && cartItems.children[0].id === 'cart-empty-state') {
-            document.getElementById('cart-empty-state').style.display = 'flex';
-        } else if(cartItems.children.length === 0) {
-             document.getElementById('cart-empty-state').style.display = 'flex';
-        }
+        cartData = cartData.filter(item => item.id != id);
+        saveCart();
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCart();
+    });
     </script>
 
     <!-- Off-Canvas Cart HTML -->
@@ -251,8 +270,22 @@
             </div>
         </div>
         <div class="cart-footer">
-            <a href="<?= base_url('/checkout') ?>" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">Lanjut ke Checkout</a>
+            <button onclick="checkoutCart()" class="btn btn-primary" style="width: 100%; text-align: center; display: block; border: none; cursor: pointer; padding: 1rem; font-size: 1rem;">Lanjut ke Checkout</button>
         </div>
     </div>
+    
+    <script>
+    function checkoutCart() {
+        let cartData = JSON.parse(localStorage.getItem('tropical_cart') || '[]');
+        if(cartData.length === 0) {
+            alert('Keranjang Anda kosong! Silakan tambahkan produk terlebih dahulu.');
+            return;
+        }
+        // Ensure direct checkout data is wiped so the checkout page reads from the cart
+        sessionStorage.removeItem('direct_checkout_price');
+        sessionStorage.removeItem('direct_checkout_name');
+        window.location.href = '<?= base_url('/checkout') ?>';
+    }
+    </script>
 </body>
 </html>

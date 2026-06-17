@@ -8,12 +8,12 @@
     <div style="background: var(--bg-card); border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); overflow: hidden;">
         
         <!-- Transaction Tabs -->
-        <div style="display: flex; border-bottom: 1px solid rgba(0,0,0,0.05); background: #fdfdfd;">
-            <button style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 600; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); cursor: pointer;">Semua</button>
-            <button style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); cursor: pointer;">Belum Bayar</button>
-            <button style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); cursor: pointer;">Pending</button>
-            <button style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); cursor: pointer;">Dikirim</button>
-            <button style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); cursor: pointer;">Diterima</button>
+        <div style="display: flex; border-bottom: 1px solid rgba(0,0,0,0.05); background: #fdfdfd;" id="th-tabs">
+            <button class="th-tab active" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 600; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); cursor: pointer;">Semua</button>
+            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Belum Bayar</button>
+            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Pending</button>
+            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Dikirim</button>
+            <button class="th-tab" style="flex: 1; padding: 1rem; border: none; background: transparent; font-weight: 500; color: var(--text-light); border-bottom: 2px solid transparent; cursor: pointer;">Diterima</button>
         </div>
 
         <!-- Transaction List -->
@@ -41,9 +41,6 @@
                         <p style="font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.2rem;">Total Belanja</p>
                         <p style="font-weight: 600; color: var(--primary-color);">Rp 450.000</p>
                     </div>
-                </div>
-                <div style="margin-top: 1rem; text-align: right;">
-                    <button class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem; border-color: var(--primary-color);">Lacak Pengiriman</button>
                 </div>
             </div>
 
@@ -78,5 +75,28 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.th-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active state from all
+            tabs.forEach(t => {
+                t.classList.remove('active');
+                t.style.fontWeight = '500';
+                t.style.color = 'var(--text-light)';
+                t.style.borderBottom = '2px solid transparent';
+            });
+            
+            // Add active state to clicked
+            this.classList.add('active');
+            this.style.fontWeight = '600';
+            this.style.color = 'var(--primary-color)';
+            this.style.borderBottom = '2px solid var(--primary-color)';
+        });
+    });
+});
+</script>
 
 <?= $this->endSection() ?>

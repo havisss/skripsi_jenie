@@ -44,10 +44,10 @@ if(!$product):
             </p>
 
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <a href="<?= base_url('/checkout') ?>" class="btn btn-primary" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem; text-transform: uppercase; letter-spacing: 2px;">
+                <button onclick="checkoutLangsung(<?= $product['price'] ?>, '<?= esc($product['name']) ?>')" class="btn btn-primary" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem; text-transform: uppercase; letter-spacing: 2px; border: none; cursor: pointer;">
                     Beli Langsung (Checkout)
-                </a>
-                <button onclick="openCart(<?= $product_id ?>, '<?= esc($product['name']) ?>', <?= $product['price'] ?>, '<?= $product['img'] ?>')" class="btn" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem; background: transparent; border-color: var(--primary-color); display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                </button>
+                <button onclick="openCart(<?= $product_id ?>, '<?= esc($product['name']) ?>', <?= $product['price'] ?>, '<?= $product['img'] ?>')" class="btn" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem; background: transparent; border-color: var(--primary-color); display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     Tambah ke Keranjang
                 </button>
@@ -56,6 +56,14 @@ if(!$product):
 
     </div>
 </div>
+
+<script>
+function checkoutLangsung(price, name) {
+    sessionStorage.setItem('direct_checkout_price', price);
+    sessionStorage.setItem('direct_checkout_name', name);
+    window.location.href = '<?= base_url('/checkout') ?>';
+}
+</script>
 
 <?php endif; ?>
 

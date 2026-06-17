@@ -179,6 +179,9 @@
 
         const submitBtn = document.getElementById('co-submit-btn');
         submitBtn.addEventListener('click', function() {
+            let basePrice = basePrices[activeProduct] || 125000;
+            let qty = parseInt(qtyInput.value) || 1;
+            sessionStorage.setItem('pending_custom_order_price', basePrice * qty);
             window.location.href = '<?= base_url('/checkout') ?>';
         });
     });

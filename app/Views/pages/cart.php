@@ -106,6 +106,7 @@ async function removeCartItem(id_cart) {
     try {
         const formData = new FormData();
         formData.append('id_cart', id_cart);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
         await fetch('<?= base_url('cart/remove') ?>', { method: 'POST', body: formData });
         window.location.reload();
     } catch (e) {
@@ -122,6 +123,7 @@ async function updateQty(id_cart, change) {
         const formData = new FormData();
         formData.append('id_cart', id_cart);
         formData.append('jumlah', newQty);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
         await fetch('<?= base_url('cart/update') ?>', { method: 'POST', body: formData });
         window.location.reload();
     } catch (e) {

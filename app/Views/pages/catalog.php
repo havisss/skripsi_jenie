@@ -100,6 +100,7 @@ async function openCart(id_produk, name, price, img) {
         const formData = new FormData();
         formData.append('id_produk', id_produk);
         formData.append('jumlah', 1);
+        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
 
         const response = await fetch('<?= base_url('cart/add') ?>', {
             method: 'POST',

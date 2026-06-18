@@ -231,9 +231,9 @@
                                 <h4 style="margin:0 0 0.5rem 0; font-size:0.9rem;">${item.nama_produk}</h4>
                                 <div style="display:flex; justify-content:space-between; align-items:center;">
                                     <div style="display:flex; align-items:center; gap:0.3rem;">
-                                        <button onclick="updateCartItem(${item.id_cart}, ${item.jumlah - 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">−</button>
+                                        <button onclick="updateCartItem(${item.id_cart}, ${parseInt(item.jumlah) - 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">−</button>
                                         <span style="min-width:28px; text-align:center; font-size:0.85rem;">${item.jumlah}</span>
-                                        <button onclick="updateCartItem(${item.id_cart}, ${item.jumlah + 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">+</button>
+                                        <button onclick="updateCartItem(${item.id_cart}, ${parseInt(item.jumlah) + 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">+</button>
                                     </div>
                                     <strong style="color:var(--primary-color); font-size:0.9rem;">Rp ${hargaFmt}</strong>
                                 </div>

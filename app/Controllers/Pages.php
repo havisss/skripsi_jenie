@@ -28,16 +28,7 @@ class Pages extends BaseController
         return view('pages/catalog', $data);
     }
 
-    /**
-     * Menampilkan halaman Custom Order
-     */
-    public function customOrder()
-    {
-        $data = [
-            'title' => 'Custom Order | TropicalShop'
-        ];
-        return view('pages/custom_order', $data);
-    }
+
 
     /**
      * Menampilkan halaman Company Info

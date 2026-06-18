@@ -9,7 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Pages::index');
 $routes->get('catalog', 'Pages::catalog'); 
-$routes->get('custom-order', 'Pages::customOrder');
+
 $routes->get('company-info', 'Pages::companyInfo');
 $routes->get('login', 'Pages::login');
 $routes->get('register', 'Pages::register');

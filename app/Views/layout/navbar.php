@@ -3,18 +3,10 @@
     <div class="nav-container">
         <!-- LEFT: LOGO -->
         <div class="nav-left">
-            <a href="<?= base_url('/') ?>" class="nav-brand">
-                <div class="brand-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 2a10 10 0 0 1 10 10"></path>
-                        <path d="M2 12a10 10 0 0 1 10-10"></path>
-                        <circle cx="12" cy="12" r="4"></circle>
-                    </svg>
-                </div>
-                <div class="brand-text">
-                    <span class="brand-title">BALI</span>
-                    <span class="brand-subtitle">ART HOUSE</span>
+            <a href="<?= base_url('/') ?>" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; padding: 5px 0;">
+                <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span class="nav-brand-title">BALI</span>
+                    <span class="nav-brand-title" style="font-weight: 400;">ART HOUSE</span>
                 </div>
             </a>
         </div>
@@ -24,7 +16,7 @@
             <ul class="nav-menu">
                 <li><a href="<?= base_url('/') ?>" class="nav-item <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
                 <li><a href="<?= base_url('/catalog') ?>" class="nav-item <?= ($uri == 'catalog' ? 'active' : '') ?>">Catalog</a></li>
-                <li><a href="<?= base_url('/custom-order') ?>" class="nav-item <?= ($uri == 'custom-order' ? 'active' : '') ?>">Custom Order</a></li>
+
                 <li><a href="<?= base_url('/company-info') ?>" class="nav-item <?= ($uri == 'company-info' ? 'active' : '') ?>">About Us</a></li>
             </ul>
         </div>
@@ -60,7 +52,7 @@
         <ul class="mobile-nav-menu">
             <li><a href="<?= base_url('/') ?>" class="mobile-nav-item <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
             <li><a href="<?= base_url('/catalog') ?>" class="mobile-nav-item <?= ($uri == 'catalog' ? 'active' : '') ?>">Catalog</a></li>
-            <li><a href="<?= base_url('/custom-order') ?>" class="mobile-nav-item <?= ($uri == 'custom-order' ? 'active' : '') ?>">Custom Order</a></li>
+
             <li><a href="<?= base_url('/company-info') ?>" class="mobile-nav-item <?= ($uri == 'company-info' ? 'active' : '') ?>">About Us</a></li>
         </ul>
     </div>

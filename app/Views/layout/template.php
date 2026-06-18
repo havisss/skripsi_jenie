@@ -15,29 +15,7 @@
 </head>
 
 <body>
-    <!-- Elegant Preloader -->
-    <div class="preloader">
-        <div class="preloader-content">
-            <div class="preloader-logo-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="preloader-logo-svg">
-                    <circle cx="12" cy="12" r="10" class="icon-ring" />
-                    <circle cx="12" cy="12" r="8.2" class="icon-ring-inner" stroke-dasharray="1.5 1.5" />
-                    <path class="icon-petal" d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" />
-                    <path class="icon-petal" d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" />
-                    <path class="icon-petal" d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" />
-                    <path class="icon-petal" d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" />
-                    <path class="icon-petal-diagonal" d="M6 6c1.2 1.2 2 2 2.8 1.6s.8-.8.8-1.2-1-1.2-2-2S6.5 5.2 6 6z" />
-                    <path class="icon-petal-diagonal" d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8 1.2 1 1.2 2 2 1.5-1.2 2-2z" />
-                    <path class="icon-petal-diagonal" d="M18 6c-1.2 1.2-2 2-2.8 1.6s-.8-.8-.8-1.2 1-1.2 2-2 1.5 1.2 2 2z" />
-                    <path class="icon-petal-diagonal" d="M6 18c1.2-1.2 2-2 2.8-1.6s.8.8.8 1.2-1 1.2-2-2-1.5-1.2-2 2z" />
-                    <circle cx="12" cy="12" r="1.2" fill="currentColor" class="icon-center-dot" />
-                </svg>
-            </div>
-            <div class="preloader-brand">BALI</div>
-            <div style="font-family: var(--font-body); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--primary-color); margin-top: -0.2rem; margin-bottom: 0.8rem;">ART HOUSE</div>
-            <div class="preloader-text">0%</div>
-        </div>
-    </div>
+
 
     <?php if(!isset($hide_nav)): ?>
     <?= $this->include('layout/navbar') ?>
@@ -50,28 +28,16 @@
     <?php if(!isset($hide_nav)): ?>
     <!-- Luxury Footer -->
     <footer class="footer" style="position: relative; text-align: center; padding: 4rem 2rem;">
-        <div style="margin-bottom: 1.2rem;">
-            <!-- Symmetrical Floral Emblem -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-linecap="round" stroke-linejoin="round" style="width: 30px; height: 30px; opacity: 0.8; display: inline-block;">
-                <circle cx="12" cy="12" r="10" stroke-width="0.8" />
-                <circle cx="12" cy="12" r="8.2" stroke-width="0.5" stroke-dasharray="1.5 1.5" />
-                <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="0.8" />
-                <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="0.8" />
-                <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="0.8" />
-                <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="0.8" />
-                <path d="M6 6c1.2 1.2 2 2 2.8 1.6s.8-.8.8-1.2-1-1.2-2-2S6.5 5.2 6 6z" stroke-width="0.6" opacity="0.7" />
-                <path d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8-1.2 1-1.2 2-2 1.5-1.2 2-2z" stroke-width="0.6" opacity="0.7" />
-                <path d="M18 6c-1.2 1.2-2 2-2.8 1.6s-.8-.8-.8-1.2 1-1.2 2-2 1.5 1.2 2 2z" stroke-width="0.6" opacity="0.7" />
-                <path d="M6 18c1.2-1.2 2-2 2.8-1.6s.8.8.8 1.2-1 1.2-2-2-1.5-1.2-2 2z" stroke-width="0.6" opacity="0.7" />
-                <circle cx="12" cy="12" r="1.2" fill="var(--primary-color)" />
-            </svg>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 2.5rem; gap: 5px;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; letter-spacing: 2px; margin: 0; line-height: 1; color: var(--text-color);">BALI <span style="font-weight: 400;">ART HOUSE</span></h3>
+            <span style="font-size: 0.75rem; font-weight: 500; letter-spacing: 3px; color: var(--primary-color); margin-top: 4px; text-transform: uppercase;">Sablon Kain & Kebaya Lokal</span>
         </div>
         
         <!-- Footer Navigation Links -->
         <div class="footer-links-row" style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
             <a href="<?= base_url('/') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Home</a>
             <a href="<?= base_url('/catalog') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Katalog</a>
-            <a href="<?= base_url('/custom-order') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Kustomisasi</a>
+
             <a href="<?= base_url('/confirm-payment') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Konfirmasi Pembayaran</a>
             <a href="<?= base_url('/shipping-status') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Status Pengiriman</a>
         </div>
@@ -151,19 +117,7 @@
         });
     }
 
-    // --- 4. Preloader loading percentage ---
-    let percent = 0;
-    const percentEl = document.querySelector('.preloader-text');
-    const preloader = document.querySelector('.preloader');
-    
-    let interval = setInterval(() => {
-        percent += Math.floor(Math.random() * 15) + 5;
-        if (percent >= 90) {
-            percent = 90;
-            clearInterval(interval);
-        }
-        if (percentEl) percentEl.textContent = percent + '%';
-    }, 30);
+
 
     window.addEventListener('load', () => {
         clearInterval(interval);

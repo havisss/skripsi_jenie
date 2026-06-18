@@ -7,12 +7,25 @@
     <section class="company-hero">
         <div class="company-hero-content reveal">
             <h1>Tentang Bali Art House</h1>
-            <p>Memadukan nilai seni tradisional dengan proses digital modern untuk melahirkan cetakan kain premium orisinal dari Bali.</p>
+            <p>Melayani sablon kain custom dan produksi kebaya lokal dengan dedikasi penuh dari workshop kami di Bali.</p>
         </div>
     </section>
 
     <div class="ci-wrapper">
         
+        <!-- Logo Philosophy Section -->
+        <section class="ci-philosophy reveal" style="margin-top: 4rem; margin-bottom: 5rem;">
+            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 800px; margin: 0 auto; padding: 0 2rem;">
+                <div style="display: flex; align-items: baseline; gap: 6px; margin-bottom: 1.5rem; justify-content: center;">
+                    <span style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; color: var(--text-color); letter-spacing: 2px;">BALI</span>
+                    <span style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 400; color: var(--text-color); letter-spacing: 2px;">ART HOUSE</span>
+                </div>
+                <h2 class="ci-section-title" style="margin-bottom: 1rem;">Filosofi Bali Art House</h2>
+                <p style="color: var(--text-light); line-height: 1.8; font-size: 1.05rem;">
+                    Nama <strong>Bali Art House</strong> dan tipografi yang lugas namun elegan mencerminkan visi kami sebagai 'rumah' bagi para pengrajin sablon dan penjahit lokal di Bali. Kami percaya bahwa setiap lembar kain dan jahitan kebaya adalah karya seni yang patut dihargai. Fokus kami adalah memberikan kualitas sablon yang jujur dan dapat diandalkan, tanpa basa-basi, untuk memenuhi kebutuhan busana masyarakat lokal.
+                </p>
+            </div>
+        </section>
         <!-- Offerings Section -->
         <section class="ci-offerings reveal">
             <h2 class="ci-section-title">Layanan Kami</h2>

@@ -6,8 +6,8 @@
     <div class="hero-bg-media" style="background-image: url('<?= base_url('images/hero_bali_premium.png') ?>');"></div>
     
     <div class="hero-content">
-        <h1 class="reveal">Seni Bali, Sentuhan Kemewahan</h1>
-        <p class="reveal delay-1">Temukan koleksi kain print eksklusif dan busana Bali berkualitas tinggi, atau wujudkan motif impian Anda melalui pesanan kustom desainer kami.</p>
+        <h1 class="reveal">Pusat Sablon Kain & Kebaya Bali</h1>
+        <p class="reveal delay-1">Dikerjakan langsung dari workshop kami di Pemogan. Temukan koleksi kain print lokal, busana Bali berkualitas, atau wujudkan motif impian Anda.</p>
         <div class="hero-buttons reveal delay-2">
             <a href="<?= base_url('/catalog') ?>" class="btn btn-primary">Lihat Katalog</a>
             <a href="<?= base_url('/custom-order') ?>" class="btn">Pesanan Kustom</a>
@@ -65,9 +65,9 @@
         </div>
         <div class="story-content">
             <span class="subtitle">Kisah Kami</span>
-            <h2>Mahakarya di Setiap Untai Benang</h2>
-            <p>Di Bali Art House, kami menaruh rasa hormat mendalam pada nilai seni tradisional Bali. Produk kami bukan sekadar tekstil cetak biasa, melainkan hasil kreasi teliti yang menggabungkan motif legendaris Nusantara dengan kenyamanan gaya modern.</p>
-            <p>Setiap goresan warna didesain khusus oleh perajin lokal untuk menghidupkan kemewahan pulau Dewata di busana harian Anda.</p>
+            <h2>Dikerjakan Langsung dari Workshop Kami</h2>
+            <p>Di Bali Art House, kami memproduksi sendiri karya cetak sablon tekstil dan busana. Berawal dari workshop kecil di kawasan Pemogan, Denpasar, kami terus berupaya menyediakan kualitas produk lokal yang nyaman untuk keseharian Anda.</p>
+            <p>Setiap goresan warna dan pola dirancang oleh para pekerja seni lokal Bali yang mendedikasikan keterampilannya di setiap pesanan yang masuk.</p>
             <a href="<?= base_url('/company-info') ?>" class="btn btn-primary" style="margin-top: 0.5rem;">Tentang Kami</a>
         </div>
     </section>
@@ -168,10 +168,10 @@
 
 <!-- CTA Banner -->
 <section class="cta-banner reveal" style="position: relative; background-image: url('<?= base_url('images/cta_banner_1781628914621.png') ?>'); background-size: cover; background-position: center; border-top: var(--border-gold); padding: 6rem 2rem; text-align: center; color: #ffffff;">
-    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.8) 100%); z-index: 1;"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.85) 100%); z-index: 1;"></div>
     <div class="cta-content" style="position: relative; z-index: 2; max-width: 700px; margin: 0 auto;">
-        <h2 style="color: #ffffff; font-size: 2.2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Ingin Custom Desain?</h2>
-        <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem;">Gunakan layanan pesanan kustom untuk mencetak kreasi corak motif Anda sendiri secara mudah, diawasi langsung oleh ahli sablon kami.</p>
+        <h2 style="color: #ffffff; font-size: 2.2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Ingin Custom Desain Sablon?</h2>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem;">Gunakan layanan pesanan kustom untuk mencetak kain dengan corak dan motif buatan Anda sendiri. Dikerjakan langsung di workshop kami.</p>
         <a href="<?= base_url('/custom-order') ?>" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1rem; text-decoration: none;">Mulai Custom Order</a>
     </div>
 </section>

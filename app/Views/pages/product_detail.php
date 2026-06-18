@@ -55,14 +55,14 @@ function checkoutLangsung(price, name) {
         return;
     }
 
-    // You can implement direct checkout API or just add to cart and redirect
-    openCart(<?= $product_id ?>, name, price, '')
+    // Add to cart silently and redirect
+    openCart(<?= $product_id ?>, name, price, '', false)
     .then(() => {
         window.location.href = '<?= base_url('/checkout') ?>';
     });
 }
 
-async function openCart(id_produk, name, price, img) {
+async function openCart(id_produk, name, price, img, showAlert = true) {
     const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
     if (!isLoggedIn) {
         alert("Silakan login terlebih dahulu untuk menambahkan barang ke keranjang.");
@@ -82,7 +82,9 @@ async function openCart(id_produk, name, price, img) {
         
         const result = await response.json();
         if (result.status === 'success') {
-            alert(name + " berhasil ditambahkan ke keranjang!");
+            if (showAlert) {
+                alert(name + " berhasil ditambahkan ke keranjang!");
+            }
             return Promise.resolve();
         } else {
             alert(result.message || "Gagal menambahkan ke keranjang.");

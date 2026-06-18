@@ -17,7 +17,7 @@
             <div style="background: var(--bg-card); border: var(--border-gold); padding: 2.5rem; margin-bottom: 2rem;">
                 <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-color); border-bottom: 1px solid rgba(179,135,40,0.15); padding-bottom: 0.8rem; letter-spacing: 0.5px;">1. Detail Pengiriman (Pemesanan)</h2>
                 
-                <form id="checkout-form" method="POST" action="<?= base_url('/checkout/process') ?>">
+                <form id="checkout-form" method="POST" action="<?= base_url('/order/process') ?>">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group" style="margin-bottom: 0;">
                             <label style="display: block; color: var(--text-color); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Nama Penerima</label>

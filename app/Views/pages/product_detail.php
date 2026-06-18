@@ -46,8 +46,17 @@ if(!$product):
 </div>
 
 <script>
+function getCsrfToken() {
+    const name = 'csrf_cookie_name=';
+    const cookies = document.cookie.split(';');
+    for (let c of cookies) {
+        c = c.trim();
+        if (c.indexOf(name) === 0) return c.substring(name.length);
+    }
+    return '';
+}
+
 function checkoutLangsung(price, name) {
-    // Check if user is logged in
     const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
     if (!isLoggedIn) {
         alert("Silakan login terlebih dahulu untuk checkout.");
@@ -55,11 +64,10 @@ function checkoutLangsung(price, name) {
         return;
     }
 
-    // Direct checkout via URL param
     window.location.href = '<?= base_url('/checkout') ?>?id_produk=<?= $product_id ?>&jumlah=1';
 }
 
-async function openCart(id_produk, name, price, img, showAlert = true) {
+async function openCart(id_produk, name, price, img) {
     const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
     if (!isLoggedIn) {
         alert("Silakan login terlebih dahulu untuk menambahkan barang ke keranjang.");
@@ -71,7 +79,7 @@ async function openCart(id_produk, name, price, img, showAlert = true) {
         const formData = new FormData();
         formData.append('id_produk', id_produk);
         formData.append('jumlah', 1);
-        formData.append('<?= csrf_token() ?>', '<?= csrf_hash() ?>');
+        formData.append('csrf_test_name', getCsrfToken());
 
         const response = await fetch('<?= base_url('cart/add') ?>', {
             method: 'POST',

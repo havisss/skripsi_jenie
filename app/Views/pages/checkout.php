@@ -31,10 +31,11 @@
                                 <div style="color:var(--primary-color); font-weight:600; font-size:0.9rem;">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
                             </div>
                             <div style="display:flex; align-items:center; border:1px solid rgba(0,0,0,0.1);">
-                                <button type="button" onclick="updateCheckoutQty(this, -1)" style="background:transparent; border:none; padding:0.5rem 0.8rem; cursor:pointer;">-</button>
+                                <button type="button" onclick="updateCheckoutQty(this, -1)" style="background:transparent; border:none; padding:0.5rem 0.8rem; cursor:pointer;">−</button>
                                 <input type="number" name="jumlah[]" value="<?= esc($item['jumlah']) ?>" readonly style="width:40px; text-align:center; border:none; outline:none; background:transparent; font-family:var(--font-body);">
                                 <button type="button" onclick="updateCheckoutQty(this, 1)" style="background:transparent; border:none; padding:0.5rem 0.8rem; cursor:pointer;">+</button>
                             </div>
+                            <button type="button" onclick="removeCheckoutItem(this)" title="Hapus" style="background:transparent; border:none; color:#c00; cursor:pointer; font-size:1.3rem; padding:0 0.4rem;">&times;</button>
                             
                             <input type="hidden" name="id_produk[]" value="<?= esc($item['id_produk']) ?>">
                             <input type="hidden" name="id_cart[]" value="<?= esc($item['id_cart'] ?? '') ?>">
@@ -150,6 +151,19 @@ function updateCheckoutQty(btn, change) {
         input.value = newQty;
         recalculateTotals();
     }
+}
+
+function removeCheckoutItem(btn) {
+    const itemDiv = btn.closest('.checkout-item');
+    itemDiv.remove();
+    
+    const remaining = document.querySelectorAll('.checkout-item');
+    if (remaining.length === 0) {
+        alert('Tidak ada item tersisa. Anda akan diarahkan kembali ke katalog.');
+        window.location.href = '<?= base_url('/catalog') ?>';
+        return;
+    }
+    recalculateTotals();
 }
 
 function recalculateTotals() {

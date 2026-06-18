@@ -195,6 +195,16 @@
     </div>
 
     <script>
+    function getCsrfToken() {
+        const name = 'csrf_cookie_name=';
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.indexOf(name) === 0) return c.substring(name.length);
+        }
+        return '';
+    }
+
     async function loadCart() {
         const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
         if (!isLoggedIn) return;
@@ -215,15 +225,20 @@
                     result.items.forEach(item => {
                         const hargaFmt = new Intl.NumberFormat('id-ID').format(item.harga * item.jumlah);
                         html += `
-                        <div style="display:flex; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,0,0,0.05);">
+                        <div id="cart-item-${item.id_cart}" style="display:flex; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,0,0,0.05);">
                             <img src="<?= base_url() ?>/${item.url_gambar}" style="width:70px; height:70px; object-fit:cover; border-radius:4px;">
                             <div style="flex:1;">
                                 <h4 style="margin:0 0 0.5rem 0; font-size:0.9rem;">${item.nama_produk}</h4>
                                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                                    <span style="color:var(--text-light); font-size:0.85rem;">Qty: ${item.jumlah}</span>
+                                    <div style="display:flex; align-items:center; gap:0.3rem;">
+                                        <button onclick="updateCartItem(${item.id_cart}, ${item.jumlah - 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">−</button>
+                                        <span style="min-width:28px; text-align:center; font-size:0.85rem;">${item.jumlah}</span>
+                                        <button onclick="updateCartItem(${item.id_cart}, ${item.jumlah + 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">+</button>
+                                    </div>
                                     <strong style="color:var(--primary-color); font-size:0.9rem;">Rp ${hargaFmt}</strong>
                                 </div>
                             </div>
+                            <button onclick="removeCartItem(${item.id_cart})" title="Hapus" style="background:transparent; border:none; color:#c00; cursor:pointer; font-size:1.2rem; padding:0 0.3rem; align-self:flex-start;">&times;</button>
                         </div>`;
                     });
                     itemsContainer.innerHTML = html;
@@ -232,6 +247,37 @@
             }
         } catch (e) {
             console.error("Gagal memuat keranjang", e);
+        }
+    }
+
+    async function updateCartItem(id_cart, newQty) {
+        if (newQty < 1) {
+            removeCartItem(id_cart);
+            return;
+        }
+        try {
+            const formData = new FormData();
+            formData.append('id_cart', id_cart);
+            formData.append('jumlah', newQty);
+            formData.append('csrf_test_name', getCsrfToken());
+
+            await fetch('<?= base_url('cart/update') ?>', { method: 'POST', body: formData });
+            loadCart();
+        } catch (e) {
+            console.error("Gagal update keranjang", e);
+        }
+    }
+
+    async function removeCartItem(id_cart) {
+        try {
+            const formData = new FormData();
+            formData.append('id_cart', id_cart);
+            formData.append('csrf_test_name', getCsrfToken());
+
+            await fetch('<?= base_url('cart/remove') ?>', { method: 'POST', body: formData });
+            loadCart();
+        } catch (e) {
+            console.error("Gagal hapus item keranjang", e);
         }
     }
 

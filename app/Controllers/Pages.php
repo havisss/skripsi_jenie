@@ -176,8 +176,25 @@ class Pages extends BaseController
      */
     public function transactionHistory()
     {
+        $id_pelanggan = session()->get('id_pelanggan');
+        
+        $pesananModel = new \App\Models\PesananModel();
+        $pesananDetailModel = new \App\Models\PesananDetailModel();
+        
+        $pesanan_list = $pesananModel->getPesananByPelanggan($id_pelanggan);
+        
+        // Untuk setiap pesanan, ambil detail item-nya
+        foreach ($pesanan_list as &$pesanan) {
+            $pesanan['details'] = $pesananDetailModel
+                ->select('pesanan_detail.*, produk.nama_produk, produk.url_gambar')
+                ->join('produk', 'produk.id_produk = pesanan_detail.id_produk', 'left')
+                ->where('id_pesan', $pesanan['id_pesan'])
+                ->findAll();
+        }
+        
         $data = [
-            'title' => 'Riwayat Transaksi | TropicalShop'
+            'title' => 'Riwayat Transaksi | TropicalShop',
+            'pesanan_list' => $pesanan_list
         ];
         return view('pages/transaction_history', $data);
     }

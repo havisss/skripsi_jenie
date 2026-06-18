@@ -4,7 +4,7 @@
 
 <div class="main-content">
     <!-- Hero Banner -->
-    <section class="company-hero" style="background-image: url('<?= base_url('images/company_hero_1781631400789.png') ?>');">
+    <section class="company-hero">
         <div class="company-hero-content reveal">
             <h1>Tentang Bali Art House</h1>
             <p>Memadukan nilai seni tradisional dengan proses digital modern untuk melahirkan cetakan kain premium orisinal dari Bali.</p>

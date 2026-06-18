@@ -172,6 +172,6 @@
             if (preloader) preloader.classList.add('loaded');
         }, 150);
     });
-
+    </script>
 </body>
 </html>

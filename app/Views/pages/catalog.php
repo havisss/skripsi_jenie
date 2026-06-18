@@ -109,7 +109,9 @@ async function openCart(id_produk, name, price, img) {
         
         const result = await response.json();
         if (result.status === 'success') {
-            alert(name + " berhasil ditambahkan ke keranjang!");
+            if (typeof openOffcanvasCart === 'function') {
+                openOffcanvasCart();
+            }
         } else {
             alert(result.message || "Gagal menambahkan ke keranjang.");
         }

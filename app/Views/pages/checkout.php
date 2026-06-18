@@ -18,6 +18,29 @@
                 <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-color); border-bottom: 1px solid rgba(179,135,40,0.15); padding-bottom: 0.8rem; letter-spacing: 0.5px;">1. Detail Pengiriman (Pemesanan)</h2>
                 
                 <form id="checkout-form" method="POST" action="<?= base_url('/order/process') ?>">
+                    <input type="hidden" name="is_cart_checkout" value="<?= esc($is_cart_checkout) ?>">
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--text-color); margin-bottom: 1rem;">Daftar Produk</h3>
+                        <?php foreach($checkout_items as $index => $item): ?>
+                        <div class="checkout-item" style="display:flex; gap:1rem; align-items:center; padding-bottom:1rem; border-bottom:1px solid rgba(0,0,0,0.05); margin-bottom:1rem;" data-price="<?= $item['harga'] ?>">
+                            <img src="<?= base_url($item['url_gambar']) ?>" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+                            <div style="flex:1;">
+                                <h4 style="margin:0 0 0.25rem 0; font-size:0.95rem;"><?= esc($item['nama_produk']) ?></h4>
+                                <div style="color:var(--primary-color); font-weight:600; font-size:0.9rem;">Rp <?= number_format($item['harga'], 0, ',', '.') ?></div>
+                            </div>
+                            <div style="display:flex; align-items:center; border:1px solid rgba(0,0,0,0.1);">
+                                <button type="button" onclick="updateCheckoutQty(this, -1)" style="background:transparent; border:none; padding:0.5rem 0.8rem; cursor:pointer;">-</button>
+                                <input type="number" name="jumlah[]" value="<?= esc($item['jumlah']) ?>" readonly style="width:40px; text-align:center; border:none; outline:none; background:transparent; font-family:var(--font-body);">
+                                <button type="button" onclick="updateCheckoutQty(this, 1)" style="background:transparent; border:none; padding:0.5rem 0.8rem; cursor:pointer;">+</button>
+                            </div>
+                            
+                            <input type="hidden" name="id_produk[]" value="<?= esc($item['id_produk']) ?>">
+                            <input type="hidden" name="id_cart[]" value="<?= esc($item['id_cart'] ?? '') ?>">
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group" style="margin-bottom: 0;">
                             <label style="display: block; color: var(--text-color); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Nama Penerima</label>
@@ -114,5 +137,40 @@
         </div>
     </div>
 </div>
+
+<script>
+function updateCheckoutQty(btn, change) {
+    const container = btn.parentElement;
+    const input = container.querySelector('input[name="jumlah[]"]');
+    let currentQty = parseInt(input.value) || 1;
+    let newQty = currentQty + change;
+    
+    if (newQty >= 1) {
+        input.value = newQty;
+        recalculateTotals();
+    }
+}
+
+function recalculateTotals() {
+    const items = document.querySelectorAll('.checkout-item');
+    let subtotal = 0;
+    
+    items.forEach(item => {
+        const price = parseFloat(item.getAttribute('data-price'));
+        const qty = parseInt(item.querySelector('input[name="jumlah[]"]').value) || 1;
+        subtotal += (price * qty);
+    });
+    
+    const tax = subtotal * 0.10;
+    const shipping = 22000;
+    const total = subtotal + tax + shipping;
+    
+    const formatRp = (num) => new Intl.NumberFormat('id-ID').format(num);
+    
+    document.getElementById('co-subtotal').textContent = 'Rp ' + formatRp(subtotal);
+    document.getElementById('co-tax').textContent = 'Rp ' + formatRp(tax);
+    document.getElementById('co-total').textContent = 'Rp ' + formatRp(total);
+}
+</script>
 
 <?= $this->endSection() ?>

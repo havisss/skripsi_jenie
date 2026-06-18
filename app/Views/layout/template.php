@@ -173,5 +173,84 @@
         }, 150);
     });
     </script>
+
+    <!-- Offcanvas Cart -->
+    <div class="offcanvas-overlay" id="offcanvas-cart-overlay" onclick="closeOffcanvasCart()"></div>
+    <div class="offcanvas-cart" id="offcanvas-cart">
+        <div class="cart-header">
+            <h3>Keranjang Anda</h3>
+            <button class="cart-close" onclick="closeOffcanvasCart()" style="font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+        <div class="cart-items" id="offcanvas-cart-items" style="flex:1; overflow-y:auto; padding:1.5rem;">
+            <!-- Rendered via JS -->
+            <p style="text-align:center; color:var(--text-light); margin-top:2rem;">Memuat keranjang...</p>
+        </div>
+        <div class="cart-footer" style="padding:1.5rem; border-top:1px solid rgba(0,0,0,0.05);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                <strong>Subtotal:</strong>
+                <strong id="offcanvas-cart-subtotal">Rp 0</strong>
+            </div>
+            <button class="btn btn-primary" style="width:100%" onclick="window.location.href='<?= base_url('/checkout') ?>'">Checkout Sekarang</button>
+        </div>
+    </div>
+
+    <script>
+    async function loadCart() {
+        const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
+        if (!isLoggedIn) return;
+
+        try {
+            const response = await fetch('<?= base_url('cart/api_get') ?>');
+            const result = await response.json();
+            
+            const itemsContainer = document.getElementById('offcanvas-cart-items');
+            const subtotalEl = document.getElementById('offcanvas-cart-subtotal');
+            
+            if (result.status === 'success') {
+                if (result.items.length === 0) {
+                    itemsContainer.innerHTML = '<p style="text-align:center; color:var(--text-light); margin-top:2rem;">Keranjang Anda masih kosong.</p>';
+                    subtotalEl.textContent = 'Rp 0';
+                } else {
+                    let html = '';
+                    result.items.forEach(item => {
+                        const hargaFmt = new Intl.NumberFormat('id-ID').format(item.harga * item.jumlah);
+                        html += `
+                        <div style="display:flex; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,0,0,0.05);">
+                            <img src="<?= base_url() ?>/${item.url_gambar}" style="width:70px; height:70px; object-fit:cover; border-radius:4px;">
+                            <div style="flex:1;">
+                                <h4 style="margin:0 0 0.5rem 0; font-size:0.9rem;">${item.nama_produk}</h4>
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:var(--text-light); font-size:0.85rem;">Qty: ${item.jumlah}</span>
+                                    <strong style="color:var(--primary-color); font-size:0.9rem;">Rp ${hargaFmt}</strong>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    itemsContainer.innerHTML = html;
+                    subtotalEl.textContent = 'Rp ' + new Intl.NumberFormat('id-ID').format(result.subtotal);
+                }
+            }
+        } catch (e) {
+            console.error("Gagal memuat keranjang", e);
+        }
+    }
+
+    function openOffcanvasCart() {
+        document.getElementById('offcanvas-cart-overlay').classList.add('active');
+        document.getElementById('offcanvas-cart').classList.add('active');
+        loadCart();
+    }
+
+    function closeOffcanvasCart() {
+        document.getElementById('offcanvas-cart-overlay').classList.remove('active');
+        document.getElementById('offcanvas-cart').classList.remove('active');
+    }
+    
+    // Initial load
+    document.addEventListener('DOMContentLoaded', () => {
+        const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
+        if (isLoggedIn) loadCart();
+    });
+    </script>
 </body>
 </html>

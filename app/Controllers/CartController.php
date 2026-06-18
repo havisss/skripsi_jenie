@@ -81,4 +81,25 @@ class CartController extends BaseController
         
         return $this->response->setJSON(['status' => 'success']);
     }
+
+    public function api_get()
+    {
+        $session = session();
+        if (!$session->get('logged_in')) return $this->response->setJSON(['status' => 'error', 'message' => 'Not logged in']);
+
+        $id_pelanggan = $session->get('id_pelanggan');
+        $cartModel = new CartModel();
+        $cartItems = $cartModel->getCartWithProducts($id_pelanggan);
+        
+        $subtotal = 0;
+        foreach ($cartItems as $item) {
+            $subtotal += ($item['harga'] * $item['jumlah']);
+        }
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'items' => $cartItems,
+            'subtotal' => $subtotal
+        ]);
+    }
 }

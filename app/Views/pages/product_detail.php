@@ -55,11 +55,8 @@ function checkoutLangsung(price, name) {
         return;
     }
 
-    // Add to cart silently and redirect
-    openCart(<?= $product_id ?>, name, price, '', false)
-    .then(() => {
-        window.location.href = '<?= base_url('/checkout') ?>';
-    });
+    // Direct checkout via URL param
+    window.location.href = '<?= base_url('/checkout') ?>?id_produk=<?= $product_id ?>&jumlah=1';
 }
 
 async function openCart(id_produk, name, price, img, showAlert = true) {
@@ -83,8 +80,8 @@ async function openCart(id_produk, name, price, img, showAlert = true) {
         
         const result = await response.json();
         if (result.status === 'success') {
-            if (showAlert) {
-                alert(name + " berhasil ditambahkan ke keranjang!");
+            if (typeof openOffcanvasCart === 'function') {
+                openOffcanvasCart();
             }
             return Promise.resolve();
         } else {

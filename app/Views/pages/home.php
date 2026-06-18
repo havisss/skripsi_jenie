@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <section class="hero hero-premium">
-    <div class="hero-bg-media" style="background-image: url('<?= base_url('images/hero_bali_hd_1781627437663.png') ?>');"></div>
+    <div class="hero-bg-media" style="background-image: url('<?= base_url('images/hero_bali_premium.png') ?>');"></div>
     
     <div class="hero-content">
         <h1 class="reveal">Seni Bali, Sentuhan Kemewahan</h1>
@@ -39,7 +39,7 @@
             </a>
             <a href="<?= base_url('/catalog') ?>" class="category-card reveal delay-1">
                 <div class="img-wrapper">
-                    <img src="<?= base_url('images/product_2_1781629315810.png') ?>" alt="Setelan Piyama">
+                    <img src="<?= base_url('images/product_5_1781629315810.png') ?>" alt="Setelan Piyama">
                 </div>
                 <div class="category-title">
                     <h3>Pakaian Jadi</h3>
@@ -167,11 +167,12 @@
 </div>
 
 <!-- CTA Banner -->
-<section class="cta-banner reveal" style="background-image: url('<?= base_url('images/cta_banner_1781628914621.png') ?>'); background-size: cover; background-position: center; border-top: var(--border-gold);">
-    <div class="cta-content">
-        <h2>Ingin Custom Desain?</h2>
-        <p>Gunakan layanan pesanan kustom untuk mencetak kreasi corak motif Anda sendiri secara mudah, diawasi langsung oleh ahli sablon kami.</p>
-        <a href="<?= base_url('/custom-order') ?>" class="btn btn-primary">Mulai Custom Order</a>
+<section class="cta-banner reveal" style="position: relative; background-image: url('<?= base_url('images/cta_banner_1781628914621.png') ?>'); background-size: cover; background-position: center; border-top: var(--border-gold); padding: 6rem 2rem; text-align: center; color: #ffffff;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.8) 100%); z-index: 1;"></div>
+    <div class="cta-content" style="position: relative; z-index: 2; max-width: 700px; margin: 0 auto;">
+        <h2 style="color: #ffffff; font-size: 2.2rem; margin-bottom: 1rem; font-family: var(--font-heading);">Ingin Custom Desain?</h2>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem;">Gunakan layanan pesanan kustom untuk mencetak kreasi corak motif Anda sendiri secara mudah, diawasi langsung oleh ahli sablon kami.</p>
+        <a href="<?= base_url('/custom-order') ?>" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1rem; text-decoration: none;">Mulai Custom Order</a>
     </div>
 </section>
 

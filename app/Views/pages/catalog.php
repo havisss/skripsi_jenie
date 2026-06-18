@@ -4,7 +4,7 @@
 
 <div class="main-content">
     <!-- Catalog Hero Banner -->
-    <section class="catalog-hero" style="background-image: url('<?= base_url('images/catalog_hero_1781629280546.png') ?>'); background-size: cover; background-position: center;">
+    <section class="catalog-hero" style="background-image: url('<?= base_url('images/catalog_hero_premium.png') ?>'); background-size: cover; background-position: center;">
         <div class="catalog-hero-content reveal">
             <h1>Koleksi Kain & Pakaian</h1>
             <p>Telusuri ragam corak printing Bali modern dan tenun otentik buatan tangan perajin lokal berdedikasi tinggi.</p>

@@ -32,7 +32,21 @@
             </button>
         </div>
 
-        <!-- Collapsible Menu -->
+
+        <!-- Hamburger Menu for Mobile -->
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-menu">
+            <ul class="nav-links">
+            <li><a href="<?= base_url('/') ?>" class="nav-link <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
+            <li><a href="<?= base_url('/catalog') ?>" class="nav-link <?= ($uri == 'catalog' ? 'active' : '') ?>">Catalog</a></li>
+            <li><a href="<?= base_url('/custom-order') ?>" class="nav-link <?= ($uri == 'custom-order' ? 'active' : '') ?>">Custom Order</a></li>
+            <li><a href="<?= base_url('/company-info') ?>" class="nav-link <?= ($uri == 'company-info' ? 'active' : '') ?>">About Us</a></li>
+        </ul>      <!-- Collapsible Menu -->
         <div class="nav-collapse">
             <ul class="nav-links">
                 <li><a href="<?= base_url('/') ?>" class="nav-link <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
@@ -40,6 +54,7 @@
                 <li><a href="<?= base_url('/custom-order') ?>" class="nav-link <?= ($uri == 'custom-order' ? 'active' : '') ?>">Custom Order</a></li>
                 <li><a href="<?= base_url('/company-info') ?>" class="nav-link <?= ($uri == 'company-info' ? 'active' : '') ?>">About Us</a></li>
             </ul>
+
 
             <div class="nav-right">
                 <?php if(session()->get('logged_in')): ?>
@@ -62,6 +77,7 @@
                     <span>Cart</span>
                 </a>
             </div>
+        </div>
         </div>
     </nav>
 </header>

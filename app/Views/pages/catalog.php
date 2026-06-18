@@ -86,8 +86,17 @@
 </div>
 
 <script>
+function getCsrfToken() {
+    const name = 'csrf_cookie_name=';
+    const cookies = document.cookie.split(';');
+    for (let c of cookies) {
+        c = c.trim();
+        if (c.indexOf(name) === 0) return c.substring(name.length);
+    }
+    return '';
+}
+
 async function openCart(id_produk, name, price, img) {
-    // Check if user is logged in
     const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
     
     if (!isLoggedIn) {
@@ -100,6 +109,7 @@ async function openCart(id_produk, name, price, img) {
         const formData = new FormData();
         formData.append('id_produk', id_produk);
         formData.append('jumlah', 1);
+        formData.append('csrf_test_name', getCsrfToken());
 
         const response = await fetch('<?= base_url('cart/add') ?>', {
             method: 'POST',
@@ -108,7 +118,9 @@ async function openCart(id_produk, name, price, img) {
         
         const result = await response.json();
         if (result.status === 'success') {
-            alert(name + " berhasil ditambahkan ke keranjang!");
+            if (typeof openOffcanvasCart === 'function') {
+                openOffcanvasCart();
+            }
         } else {
             alert(result.message || "Gagal menambahkan ke keranjang.");
         }

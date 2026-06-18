@@ -22,17 +22,32 @@ class OrderController extends BaseController
         $alamat_kirim = $this->request->getPost('alamat') . ', ' . $this->request->getPost('kota') . ', ' . $this->request->getPost('provinsi') . ' - Penerima: ' . $this->request->getPost('nama_penerima') . ' (' . $this->request->getPost('no_telp') . ')';
         $jasa_kirim = $this->request->getPost('jasa_kirim');
         
-        $cartModel = new CartModel();
-        $produkModel = new ProdukModel();
+        $is_cart_checkout = $this->request->getPost('is_cart_checkout');
+        $id_produk_arr = $this->request->getPost('id_produk');
+        $jumlah_arr = $this->request->getPost('jumlah');
         
-        $cartItems = $cartModel->getCartWithProducts($id_pelanggan);
-        if (empty($cartItems)) {
-            return redirect()->to('/catalog')->with('error', 'Keranjang belanja Anda kosong.');
+        if (empty($id_produk_arr)) {
+            return redirect()->to('/catalog')->with('error', 'Tidak ada produk untuk dicheckout.');
         }
 
+        $produkModel = new ProdukModel();
+        $order_items = [];
         $subtotal = 0;
-        foreach ($cartItems as $item) {
-            $subtotal += ($item['harga'] * $item['jumlah']);
+
+        for ($i = 0; $i < count($id_produk_arr); $i++) {
+            $id_p = $id_produk_arr[$i];
+            $qty = $jumlah_arr[$i];
+            
+            $produkDb = $produkModel->find($id_p);
+            if ($produkDb) {
+                $subtotal += ($produkDb['harga'] * $qty);
+                $order_items[] = [
+                    'id_produk' => $id_p,
+                    'jumlah' => $qty,
+                    'harga_satuan' => $produkDb['harga'],
+                    'stok_lama' => $produkDb['jumlah']
+                ];
+            }
         }
         
         $tax = $subtotal * 0.10;
@@ -51,24 +66,26 @@ class OrderController extends BaseController
             'status' => 'Pending'
         ]);
 
-        // Simpan ke pesanan_detail
+        // Simpan ke pesanan_detail dan kurangi stok
         $pesananDetailModel = new PesananDetailModel();
-        foreach ($cartItems as $item) {
+        foreach ($order_items as $item) {
             $pesananDetailModel->insert([
                 'id_pesan' => $id_pesan,
                 'id_produk' => $item['id_produk'],
-                'id_kustom' => $item['id_kustom'],
+                'id_kustom' => null, // Sesuai dengan bawaan
                 'jumlah' => $item['jumlah'],
-                'harga_satuan' => $item['harga']
+                'harga_satuan' => $item['harga_satuan']
             ]);
             
             // Kurangi stok
-            $produkDb = $produkModel->find($item['id_produk']);
-            $produkModel->update($item['id_produk'], ['jumlah' => $produkDb['jumlah'] - $item['jumlah']]);
+            $produkModel->update($item['id_produk'], ['jumlah' => $item['stok_lama'] - $item['jumlah']]);
         }
 
-        // Hapus isi keranjang
-        $cartModel->where('id_pelanggan', $id_pelanggan)->delete();
+        // Hapus isi keranjang JIKA pesanan berasal dari keranjang (bukan Beli Langsung)
+        if ($is_cart_checkout == 1) {
+            $cartModel = new CartModel();
+            $cartModel->where('id_pelanggan', $id_pelanggan)->delete();
+        }
 
         $session->setFlashdata('checkout_success', 'Pemesanan Berhasil! Total tagihan: Rp ' . number_format($total_harga, 0, ',', '.'));
         return redirect()->to('/transaction-history');

@@ -119,119 +119,138 @@
 
 
 
-    // --- Off-Canvas Cart Logic ---
-    let cartData = JSON.parse(localStorage.getItem('tropical_cart') || '[]');
-
-    function saveCart() {
-        localStorage.setItem('tropical_cart', JSON.stringify(cartData));
-        renderCart();
-    }
-
-    function renderCart() {
-        const cartItems = document.getElementById('cart-items-container');
-        const emptyState = document.getElementById('cart-empty-state');
-        
-        // Clear current items except empty state
-        Array.from(cartItems.children).forEach(child => {
-            if(child.id !== 'cart-empty-state') child.remove();
-        });
-
-        if(cartData.length === 0) {
-            if(emptyState) emptyState.style.display = 'flex';
-            return;
-        }
-
-        if(emptyState) emptyState.style.display = 'none';
-
-        cartData.forEach(item => {
-            const itemHtml = `
-                <div class="cart-item" id="cart-item-${item.id}">
-                    <img src="${item.img}" alt="${item.name}">
-                    <div class="cart-item-details">
-                        <h4>${item.name}</h4>
-                        <p>Rp ${item.price.toLocaleString('id-ID')}</p>
-                        <div class="cart-qty-control">
-                            <button onclick="updateCartQty(${item.id}, -1)">-</button>
-                            <input type="text" value="${item.qty}" readonly id="qty-${item.id}">
-                            <button onclick="updateCartQty(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                    <button class="cart-item-remove" onclick="removeCartItem(${item.id})">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    </button>
-                </div>
-            `;
-            cartItems.insertAdjacentHTML('beforeend', itemHtml);
-        });
-    }
-
-    function toggleCart() {
-        document.getElementById('offcanvas-cart').classList.toggle('active');
-        document.getElementById('offcanvas-overlay').classList.toggle('active');
-    }
-
-    function openCart(id, name, price, img) {
-        let existing = cartData.find(item => item.id == id);
-        if(existing) {
-            existing.qty += 1;
-        } else {
-            cartData.push({ id, name, price, img, qty: 1 });
-        }
-        saveCart();
-        toggleCart();
-    }
-
-    function updateCartQty(id, change) {
-        let item = cartData.find(item => item.id == id);
-        if(item) {
-            item.qty += change;
-            if(item.qty < 1) item.qty = 1;
-            saveCart();
-        }
-    }
-
-    function removeCartItem(id) {
-        cartData = cartData.filter(item => item.id != id);
-        saveCart();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        renderCart();
+    window.addEventListener('load', () => {
+        clearInterval(interval);
+        if (percentEl) percentEl.textContent = '100%';
+        setTimeout(() => {
+            if (preloader) preloader.classList.add('loaded');
+        }, 150);
     });
     </script>
 
-    <!-- Off-Canvas Cart HTML -->
-    <div class="offcanvas-overlay" id="offcanvas-overlay" onclick="toggleCart()"></div>
+    <!-- Offcanvas Cart -->
+    <div class="offcanvas-overlay" id="offcanvas-cart-overlay" onclick="closeOffcanvasCart()"></div>
     <div class="offcanvas-cart" id="offcanvas-cart">
         <div class="cart-header">
-            <h3>Keranjang Belanja</h3>
-            <button class="cart-close" onclick="toggleCart()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
+            <h3>Keranjang Anda</h3>
+            <button class="cart-close" onclick="closeOffcanvasCart()" style="font-size:1.5rem; cursor:pointer;">&times;</button>
         </div>
-        <div class="cart-body" id="cart-items-container">
-            <div id="cart-empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-light); text-align: center;">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.5;"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <p>Keranjang Anda kosong</p>
+        <div class="cart-items" id="offcanvas-cart-items" style="flex:1; overflow-y:auto; padding:1.5rem;">
+            <!-- Rendered via JS -->
+            <p style="text-align:center; color:var(--text-light); margin-top:2rem;">Memuat keranjang...</p>
+        </div>
+        <div class="cart-footer" style="padding:1.5rem; border-top:1px solid rgba(0,0,0,0.05);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                <strong>Subtotal:</strong>
+                <strong id="offcanvas-cart-subtotal">Rp 0</strong>
             </div>
-        </div>
-        <div class="cart-footer">
-            <button onclick="checkoutCart()" class="btn btn-primary" style="width: 100%; text-align: center; display: block; border: none; cursor: pointer; padding: 1rem; font-size: 1rem;">Lanjut ke Checkout</button>
+            <button class="btn btn-primary" style="width:100%" onclick="window.location.href='<?= base_url('/checkout') ?>'">Checkout Sekarang</button>
         </div>
     </div>
-    
+
     <script>
-    function checkoutCart() {
-        let cartData = JSON.parse(localStorage.getItem('tropical_cart') || '[]');
-        if(cartData.length === 0) {
-            alert('Keranjang Anda kosong! Silakan tambahkan produk terlebih dahulu.');
+    function getCsrfToken() {
+        const name = 'csrf_cookie_name=';
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.indexOf(name) === 0) return c.substring(name.length);
+        }
+        return '';
+    }
+
+    async function loadCart() {
+        const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
+        if (!isLoggedIn) return;
+
+        try {
+            const response = await fetch('<?= base_url('cart/api_get') ?>');
+            const result = await response.json();
+            
+            const itemsContainer = document.getElementById('offcanvas-cart-items');
+            const subtotalEl = document.getElementById('offcanvas-cart-subtotal');
+            
+            if (result.status === 'success') {
+                if (result.items.length === 0) {
+                    itemsContainer.innerHTML = '<p style="text-align:center; color:var(--text-light); margin-top:2rem;">Keranjang Anda masih kosong.</p>';
+                    subtotalEl.textContent = 'Rp 0';
+                } else {
+                    let html = '';
+                    result.items.forEach(item => {
+                        const hargaFmt = new Intl.NumberFormat('id-ID').format(item.harga * item.jumlah);
+                        html += `
+                        <div id="cart-item-${item.id_cart}" style="display:flex; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(0,0,0,0.05);">
+                            <img src="<?= base_url() ?>/${item.url_gambar}" style="width:70px; height:70px; object-fit:cover; border-radius:4px;">
+                            <div style="flex:1;">
+                                <h4 style="margin:0 0 0.5rem 0; font-size:0.9rem;">${item.nama_produk}</h4>
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div style="display:flex; align-items:center; gap:0.3rem;">
+                                        <button onclick="updateCartItem(${item.id_cart}, ${parseInt(item.jumlah) - 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">−</button>
+                                        <span style="min-width:28px; text-align:center; font-size:0.85rem;">${item.jumlah}</span>
+                                        <button onclick="updateCartItem(${item.id_cart}, ${parseInt(item.jumlah) + 1})" style="background:transparent; border:1px solid rgba(0,0,0,0.15); width:26px; height:26px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center;">+</button>
+                                    </div>
+                                    <strong style="color:var(--primary-color); font-size:0.9rem;">Rp ${hargaFmt}</strong>
+                                </div>
+                            </div>
+                            <button onclick="removeCartItem(${item.id_cart})" title="Hapus" style="background:transparent; border:none; color:#c00; cursor:pointer; font-size:1.2rem; padding:0 0.3rem; align-self:flex-start;">&times;</button>
+                        </div>`;
+                    });
+                    itemsContainer.innerHTML = html;
+                    subtotalEl.textContent = 'Rp ' + new Intl.NumberFormat('id-ID').format(result.subtotal);
+                }
+            }
+        } catch (e) {
+            console.error("Gagal memuat keranjang", e);
+        }
+    }
+
+    async function updateCartItem(id_cart, newQty) {
+        if (newQty < 1) {
+            removeCartItem(id_cart);
             return;
         }
-        // Ensure direct checkout data is wiped so the checkout page reads from the cart
-        sessionStorage.removeItem('direct_checkout_price');
-        sessionStorage.removeItem('direct_checkout_name');
-        window.location.href = '<?= base_url('/checkout') ?>';
+        try {
+            const formData = new FormData();
+            formData.append('id_cart', id_cart);
+            formData.append('jumlah', newQty);
+            formData.append('csrf_test_name', getCsrfToken());
+
+            await fetch('<?= base_url('cart/update') ?>', { method: 'POST', body: formData });
+            loadCart();
+        } catch (e) {
+            console.error("Gagal update keranjang", e);
+        }
     }
+
+    async function removeCartItem(id_cart) {
+        try {
+            const formData = new FormData();
+            formData.append('id_cart', id_cart);
+            formData.append('csrf_test_name', getCsrfToken());
+
+            await fetch('<?= base_url('cart/remove') ?>', { method: 'POST', body: formData });
+            loadCart();
+        } catch (e) {
+            console.error("Gagal hapus item keranjang", e);
+        }
+    }
+
+    function openOffcanvasCart() {
+        document.getElementById('offcanvas-cart-overlay').classList.add('active');
+        document.getElementById('offcanvas-cart').classList.add('active');
+        loadCart();
+    }
+
+    function closeOffcanvasCart() {
+        document.getElementById('offcanvas-cart-overlay').classList.remove('active');
+        document.getElementById('offcanvas-cart').classList.remove('active');
+    }
+    
+    // Initial load
+    document.addEventListener('DOMContentLoaded', () => {
+        const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
+        if (isLoggedIn) loadCart();
+    });
     </script>
 </body>
 </html>

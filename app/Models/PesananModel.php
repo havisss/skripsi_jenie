@@ -24,4 +24,11 @@ class PesananModel extends Model
                     ->orderBy('tanggal_pesan', 'DESC')
                     ->findAll();
     }
+
+    public function getPesananByPelanggan($id_pelanggan)
+    {
+        return $this->where('id_pelanggan', $id_pelanggan)
+                    ->orderBy('tanggal_pesan', 'DESC')
+                    ->findAll();
+    }
 }

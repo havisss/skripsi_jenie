@@ -71,7 +71,7 @@
         <div class="footer-links-row" style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
             <a href="<?= base_url('/') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Home</a>
             <a href="<?= base_url('/catalog') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Katalog</a>
-            <a href="<?= base_url('/custom-order') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Kustomisasi</a>
+
             <a href="<?= base_url('/confirm-payment') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Konfirmasi Pembayaran</a>
             <a href="<?= base_url('/shipping-status') ?>" style="color: var(--text-light); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; transition: var(--transition-premium);">Status Pengiriman</a>
         </div>

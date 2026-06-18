@@ -20,8 +20,10 @@ class Pages extends BaseController
      */
     public function catalog()
     {
+        $produkModel = new \App\Models\ProdukModel();
         $data = [
-            'title' => 'Catalog | TropicalShop'
+            'title' => 'Catalog | TropicalShop',
+            'produk' => $produkModel->findAll()
         ];
         return view('pages/catalog', $data);
     }
@@ -75,8 +77,19 @@ class Pages extends BaseController
      */
     public function cart()
     {
+        $cartModel = new \App\Models\CartModel();
+        $id_pelanggan = session()->get('id_pelanggan');
+        $cart_items = $cartModel->getCartWithProducts($id_pelanggan);
+
+        $subtotal = 0;
+        foreach($cart_items as $item) {
+            $subtotal += ($item['harga'] * $item['jumlah']);
+        }
+
         $data = [
-            'title' => 'Keranjang Belanja | TropicalShop'
+            'title' => 'Keranjang Belanja | TropicalShop',
+            'cart_items' => $cart_items,
+            'subtotal' => $subtotal
         ];
         return view('pages/cart', $data);
     }
@@ -86,9 +99,23 @@ class Pages extends BaseController
      */
     public function checkout()
     {
+        $cartModel = new \App\Models\CartModel();
+        $id_pelanggan = session()->get('id_pelanggan');
+        $cart_items = $cartModel->getCartWithProducts($id_pelanggan);
+
+        if(empty($cart_items)) {
+            return redirect()->to('/catalog');
+        }
+
+        $subtotal = 0;
+        foreach($cart_items as $item) {
+            $subtotal += ($item['harga'] * $item['jumlah']);
+        }
+
         $data = [
             'title' => 'Checkout Pemesanan | TropicalShop',
-            'hide_nav' => true
+            'hide_nav' => true,
+            'subtotal' => $subtotal
         ];
         return view('pages/checkout', $data);
     }
@@ -120,9 +147,11 @@ class Pages extends BaseController
      */
     public function productDetail($id)
     {
+        $produkModel = new \App\Models\ProdukModel();
         $data = [
             'title' => 'Detail Produk | TropicalShop',
-            'product_id' => $id
+            'product_id' => $id,
+            'product' => $produkModel->find($id)
         ];
         return view('pages/product_detail', $data);
     }

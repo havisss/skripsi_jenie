@@ -47,32 +47,24 @@
     <!-- Product Grid -->
     <section class="product-grid">
         <?php 
-        $dummy_products = [
-            ['id' => 1, 'name' => 'Kemeja Sutra Premium', 'price' => 450000, 'img' => base_url('images/product_1_1781628927264.png')],
-            ['id' => 2, 'name' => 'Dress Pantai Crinkle', 'price' => 380000, 'img' => base_url('images/product_2_1781628941576.png')],
-            ['id' => 3, 'name' => 'Outer Lace Eksklusif', 'price' => 420000, 'img' => base_url('images/product_3_1781629292748.png')],
-            ['id' => 4, 'name' => 'Kain Batik Premium', 'price' => 290000, 'img' => base_url('images/product_4_1781629306089.png')],
-            ['id' => 5, 'name' => 'Tropical Summer Dress', 'price' => 350000, 'img' => base_url('images/product_5_1781629315810.png')],
-            ['id' => 6, 'name' => 'Tas Rotan Artisan', 'price' => 180000, 'img' => base_url('images/product_6_1781629329107.png')],
-            ['id' => 7, 'name' => 'Kain Motif Flora Bali', 'price' => 125000, 'img' => 'https://images.unsplash.com/photo-1542838334-42cf3558a2d1?q=80&w=1974&auto=format&fit=crop'],
-            ['id' => 8, 'name' => 'Setelan Piyama Rayon', 'price' => 210000, 'img' => 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=1964&auto=format&fit=crop'],
-            ['id' => 9, 'name' => 'Kain Pantai Sunset', 'price' => 95000, 'img' => 'https://images.unsplash.com/photo-1620799140408-edc6d5f9650d?q=80&w=1972&auto=format&fit=crop'],
-        ];
-        foreach($dummy_products as $index => $prod): 
+        // Data $produk sudah dikirim dari controller (Pages::catalog)
+        // $produk berisi array produk yang asli dari database.
+
+        foreach($produk as $index => $prod): 
             $delay_class = '';
             if($index % 3 == 1) $delay_class = 'delay-1';
             if($index % 3 == 2) $delay_class = 'delay-2';
         ?>
         <div class="product-card reveal <?= $delay_class ?>">
             <div class="product-image-link">
-                <img src="<?= $prod['img'] ?>" alt="<?= esc($prod['name']) ?>">
+                <img src="<?= base_url($prod['url_gambar']) ?>" alt="<?= esc($prod['nama_produk']) ?>">
             </div>
             <div class="product-info">
-                <h3><?= esc($prod['name']) ?></h3>
-                <p class="product-price">Rp <?= number_format($prod['price'], 0, ',', '.') ?></p>
+                <h3><?= esc($prod['nama_produk']) ?></h3>
+                <p class="product-price">Rp <?= number_format($prod['harga'], 0, ',', '.') ?></p>
                 <div style="margin-top: 1.2rem; display: flex; gap: 0.8rem; justify-content: center;">
-                    <a href="<?= base_url('/product-detail/' . $prod['id']) ?>" class="btn btn-primary" style="padding: 0.6rem 1.2rem; flex: 1; font-size: 0.75rem;">Detail</a>
-                    <button type="button" onclick="openCart(<?= $prod['id'] ?>, '<?= esc($prod['name']) ?>', <?= $prod['price'] ?>, '<?= $prod['img'] ?>')" class="btn" style="padding: 0.6rem 0.8rem; border-color: var(--primary-color); display: flex; align-items: center; justify-content: center; cursor: pointer; background: transparent;">
+                    <a href="<?= base_url('/product-detail/' . $prod['id_produk']) ?>" class="btn btn-primary" style="padding: 0.6rem 1.2rem; flex: 1; font-size: 0.75rem;">Detail</a>
+                    <button type="button" onclick="openCart(<?= $prod['id_produk'] ?>, '<?= esc($prod['nama_produk']) ?>', <?= $prod['harga'] ?>, '<?= base_url($prod['url_gambar']) ?>')" class="btn" style="padding: 0.6rem 0.8rem; border-color: var(--primary-color); display: flex; align-items: center; justify-content: center; cursor: pointer; background: transparent;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     </button>
                 </div>
@@ -90,7 +82,41 @@
             <li><a href="#">3</a></li>
             <li><a href="#">&raquo;</a></li>
         </ul>
-    </nav>
+    <!-- Optional: Add CSRF Meta Tag if needed or handle it in fetch -->
 </div>
+
+<script>
+async function openCart(id_produk, name, price, img) {
+    // Check if user is logged in
+    const isLoggedIn = <?= session()->get('logged_in') ? 'true' : 'false' ?>;
+    
+    if (!isLoggedIn) {
+        alert("Silakan login terlebih dahulu untuk menambahkan barang ke keranjang.");
+        window.location.href = "<?= base_url('/login') ?>";
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('id_produk', id_produk);
+        formData.append('jumlah', 1);
+
+        const response = await fetch('<?= base_url('cart/add') ?>', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        if (result.status === 'success') {
+            alert(name + " berhasil ditambahkan ke keranjang!");
+        } else {
+            alert(result.message || "Gagal menambahkan ke keranjang.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Terjadi kesalahan sistem.");
+    }
+}
+</script>
 
 <?= $this->endSection() ?>

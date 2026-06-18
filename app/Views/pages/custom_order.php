@@ -4,15 +4,14 @@
 
 <div class="main-content">
     <!-- Hero Banner -->
-    <section class="custom-hero">
+    <section class="custom-hero" style="margin-bottom: 3rem;">
         <div class="custom-hero-content reveal">
             <h1>Ciptakan Desain Anda Sendiri</h1>
             <p>Pilih produk dasar, tentukan ukuran pengerjaan, dan unggah berkas motif orisinal Anda untuk langsung diproses oleh tim kami.</p>
         </div>
     </section>
 
-    <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 0 4rem 0;">
-        <div class="co-wrapper">
+    <div class="co-wrapper">
             
             <!-- Left Column: Form -->
             <div class="co-main">
@@ -110,7 +109,6 @@
                 <p style="text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 1rem; line-height: 1.4;">* Harga final akan dikonfirmasi setelah proses review desain berkas.</p>
             </div>
 
-        </div>
     </div>
 </div>
 

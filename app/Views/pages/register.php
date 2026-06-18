@@ -17,66 +17,55 @@
             margin: 0;
             padding: 0;
             display: flex;
-            min-height: 100vh;
-            font-family: var(--font-body);
-            background-color: var(--bg-color);
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
-        }
-
-        /* 50% Left: Clear Image Visual Panel */
-        .login-visual-panel {
-            flex: 1;
-            position: relative;
+            font-family: var(--font-body);
             background-image: url('<?= base_url("images/login_hero_1781631706752.png") ?>');
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: var(--border-gold);
-            overflow: hidden;
+            background-attachment: fixed;
+            position: relative;
         }
 
-        .login-visual-panel::before {
+        body::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
             z-index: 1;
         }
 
-        /* 50% Right: Minimal Form */
         .login-content {
-            flex: 1.2;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 3rem 2rem;
-            position: relative;
-            background: var(--bg-card);
-            z-index: 5;
-            overflow-y: auto;
-        }
-
-        @media (max-height: 850px) {
-            .login-content {
-                justify-content: flex-start;
-            }
+            padding: 1rem;
+            overflow: hidden;
         }
 
         .login-form-wrapper {
             width: 100%;
-            max-width: 460px;
-            position: relative;
-            padding: 1.5rem 0;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 1.5rem 2.5rem;
+            border-radius: 4px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-            margin-bottom: 1.2rem;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         @media (max-width: 600px) {
@@ -91,7 +80,7 @@
         }
 
         .input-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .input-group label {
@@ -107,9 +96,9 @@
         .input-group input {
             width: 100%;
             padding: 0.75rem 0.8rem;
-            background: var(--bg-color);
-            border: 1px solid rgba(0,0,0,0.12);
-            font-size: 0.9rem;
+            background: rgba(250, 250, 249, 0.9);
+            border: 1px solid rgba(0,0,0,0.15);
+            font-size: 0.95rem;
             color: var(--text-color);
             transition: var(--transition-premium);
             border-radius: 0;
@@ -162,10 +151,10 @@
         }
 
         .back-home {
-            position: absolute;
+            position: fixed;
             top: 2rem;
             right: 3rem;
-            color: var(--text-light);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -179,23 +168,13 @@
         }
 
         .back-home:hover {
-            color: var(--text-color);
+            color: #ffffff;
             transform: translateX(-2px);
         }
 
-        @media (max-width: 992px) {
-            body {
-                flex-direction: column;
-                overflow-y: auto;
-            }
-            .login-visual-panel {
-                min-height: 220px;
-                flex: none;
-            }
-            .login-content {
-                padding: 2rem 1.5rem;
-                flex: none;
-                overflow-y: visible;
+        @media (max-width: 576px) {
+            .login-form-wrapper {
+                padding: 2.5rem 1.5rem;
             }
             .back-home {
                 right: 1.5rem;
@@ -206,18 +185,13 @@
 </head>
 <body>
 
-<!-- Left Side -->
-<div class="login-visual-panel"></div>
+<a href="<?= base_url('/') ?>" class="back-home">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    Tutup
+</a>
 
-<!-- Right Side -->
 <div class="login-content">
-    <a href="<?= base_url('/') ?>" class="back-home">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        Tutup
-    </a>
-
     <div class="login-form-wrapper">
-        <!-- Brand logo and typography header -->
         <div style="text-align: center; margin-bottom: 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <div class="logo-icon-wrapper" style="width: 50px; height: 50px; margin-bottom: 0.8rem; border-color: rgba(179, 135, 40, 0.25); background: rgba(179, 135, 40, 0.02); display: flex; align-items: center; justify-content: center; border-radius: 50%;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-svg" style="width: 32px; height: 32px;">
@@ -239,7 +213,7 @@
             <p style="font-family: var(--font-body); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light);">Cetak Kain & Busana Premium</p>
         </div>
 
-        <h1 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 500; margin-bottom: 1.8rem; text-align: center; letter-spacing: 1px;">Daftar Akun</h1>
+        <h1 style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; text-align: center; letter-spacing: 1px;">Daftar Akun</h1>
 
         <?php if(session()->getFlashdata('error_register')): ?>
             <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 1rem; border: 1px solid #f5c6cb; text-align: left; font-size: 0.85rem;">
@@ -295,6 +269,15 @@
         </div>
     </div>
 </div>
+
+<script>
+window.addEventListener('load', () => {
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        preloader.classList.add('loaded');
+    }
+});
+</script>
 
 </body>
 </html>

@@ -14,6 +14,12 @@ class CartController extends BaseController
         }
 
         $id_pelanggan = $session->get('id_pelanggan');
+        $pelangganModel = new \App\Models\PelangganModel();
+        if (!$pelangganModel->find($id_pelanggan)) {
+            $session->destroy();
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Sesi Anda tidak valid atau akun telah dihapus. Silakan login kembali.']);
+        }
+
         $id_produk = $this->request->getPost('id_produk');
         $jumlah = $this->request->getPost('jumlah') ?: 1;
 
@@ -40,6 +46,13 @@ class CartController extends BaseController
         $session = session();
         if (!$session->get('logged_in')) return $this->response->setJSON(['status' => 'error']);
 
+        $id_pelanggan = $session->get('id_pelanggan');
+        $pelangganModel = new \App\Models\PelangganModel();
+        if (!$pelangganModel->find($id_pelanggan)) {
+            $session->destroy();
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Sesi Anda tidak valid atau akun telah dihapus. Silakan login kembali.']);
+        }
+
         $id_cart = $this->request->getPost('id_cart');
         $jumlah = $this->request->getPost('jumlah');
 
@@ -53,6 +66,13 @@ class CartController extends BaseController
     {
         $session = session();
         if (!$session->get('logged_in')) return $this->response->setJSON(['status' => 'error']);
+
+        $id_pelanggan = $session->get('id_pelanggan');
+        $pelangganModel = new \App\Models\PelangganModel();
+        if (!$pelangganModel->find($id_pelanggan)) {
+            $session->destroy();
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Sesi Anda tidak valid atau akun telah dihapus. Silakan login kembali.']);
+        }
 
         $id_cart = $this->request->getPost('id_cart');
         

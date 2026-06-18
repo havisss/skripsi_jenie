@@ -3,21 +3,10 @@
     <div class="nav-container">
         <!-- LEFT: LOGO -->
         <div class="nav-left">
-            <a href="<?= base_url('/') ?>" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none; padding: 5px 0;">
-                <div style="width: 42px; height: 42px;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="nav-brand-svg" style="width: 100%; height: 100%;">
-                        <circle cx="12" cy="12" r="10" stroke-width="1" />
-                        <circle cx="12" cy="12" r="7" stroke-width="0.5" stroke-dasharray="2 2" />
-                        <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="1" />
-                        <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="1" />
-                        <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="1" />
-                        <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="1" />
-                        <circle cx="12" cy="12" r="1.5" class="logo-fill" stroke="none" />
-                    </svg>
-                </div>
-                <div style="display: flex; flex-direction: column; justify-content: center;">
+            <a href="<?= base_url('/') ?>" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; padding: 5px 0;">
+                <div style="display: flex; align-items: baseline; gap: 6px;">
                     <span class="nav-brand-title">BALI</span>
-                    <span class="nav-brand-subtitle">ART HOUSE</span>
+                    <span class="nav-brand-title" style="font-weight: 400;">ART HOUSE</span>
                 </div>
             </a>
         </div>

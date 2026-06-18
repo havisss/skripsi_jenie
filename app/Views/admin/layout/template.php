@@ -19,21 +19,10 @@
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header" style="display: flex; flex-direction: column; align-items: center; gap: 15px; padding: 30px 10px;">
-            <div style="width: 50px; height: 50px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: 100%;">
-                    <circle cx="12" cy="12" r="10" stroke-width="1" />
-                    <circle cx="12" cy="12" r="7" stroke-width="0.5" stroke-dasharray="2 2" />
-                    <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="1" />
-                    <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="1" />
-                    <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="1" />
-                    <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="1" />
-                    <circle cx="12" cy="12" r="1.5" fill="var(--primary-color)" stroke="none" />
-                </svg>
-            </div>
+        <div class="sidebar-header" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 10px;">
             <div style="line-height: 1.2; text-align: center;">
-                <span style="font-family: 'Cinzel', serif; font-size: 1.2rem; letter-spacing: 2px;">BALI</span><br>
-                <span style="font-size: 0.6em; font-family: 'Montserrat', sans-serif; letter-spacing: 5px; color: var(--text-sidebar); display: block; margin-top: 6px;">ART HOUSE</span>
+                <span style="font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 2px;">BALI</span><span style="font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 400; letter-spacing: 2px;"> ART HOUSE</span><br>
+                <span style="font-size: 0.6em; font-family: 'Montserrat', sans-serif; font-weight: 500; letter-spacing: 4px; color: var(--primary-color); display: block; margin-top: 8px; text-transform: uppercase;">Sablon & Kebaya Lokal</span>
             </div>
         </div>
         <ul class="sidebar-menu">

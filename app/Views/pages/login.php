@@ -52,13 +52,11 @@
         .login-form-wrapper {
             width: 100%;
             max-width: 440px;
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 3rem 2.5rem;
-            border-radius: 4px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.4);
+            background: #ffffff;
+            padding: 3.5rem 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .input-group {
@@ -174,21 +172,9 @@
 
 <div class="login-content">
     <div class="login-form-wrapper">
-        <div style="text-align: center; margin-bottom: 2.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
-            <div style="width: 65px; height: 65px; margin-bottom: 10px;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: 100%;">
-                    <circle cx="12" cy="12" r="10" stroke-width="1" />
-                    <circle cx="12" cy="12" r="7" stroke-width="0.5" stroke-dasharray="2 2" />
-                    <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="1" />
-                    <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="1" />
-                    <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="1" />
-                    <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="1" />
-                    <circle cx="12" cy="12" r="1.5" fill="var(--primary-color)" stroke="none" />
-                </svg>
-            </div>
-            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 6px; color: var(--text-main); margin: 0; line-height: 1;">BALI</h2>
-            <p style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--primary-color); margin: 0;">ART HOUSE</p>
-            <p style="font-family: var(--font-body); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-light); margin-top: 10px;">Cetak Kain & Busana Premium</p>
+        <div style="text-align: center; margin-bottom: 2.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;">
+            <h2 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 700; letter-spacing: 2px; color: var(--text-color); margin: 0; line-height: 1;">BALI <span style="font-weight: 400;">ART HOUSE</span></h2>
+            <p style="font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; color: var(--primary-color); margin: 0; margin-top: 5px;">Sablon Kain & Kebaya Lokal</p>
         </div>
         <h1 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 500; margin-bottom: 1.5rem; text-align: center; letter-spacing: 1px;">Masuk Akun</h1>
 
@@ -234,14 +220,7 @@
     </div>
 </div>
 
-<script>
-window.addEventListener('load', () => {
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        preloader.classList.add('loaded');
-    }
-});
-</script>
+
 
 </body>
 </html>

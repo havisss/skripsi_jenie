@@ -4,7 +4,7 @@
 
 <div class="main-content">
     <!-- Catalog Hero Banner -->
-    <section class="catalog-hero" style="background-image: url('<?= base_url('images/catalog_hero_1781629280546.png') ?>'); background-size: cover; background-position: center;">
+    <section class="catalog-hero" style="background-image: url('<?= base_url('images/catalog_hero_premium.png') ?>'); background-size: cover; background-position: center;">
         <div class="catalog-hero-content reveal">
             <h1>Koleksi Kain & Pakaian</h1>
             <p>Telusuri ragam corak printing Bali modern dan tenun otentik buatan tangan perajin lokal berdedikasi tinggi.</p>
@@ -54,9 +54,9 @@
             ['id' => 4, 'name' => 'Kain Batik Premium', 'price' => 290000, 'img' => base_url('images/product_4_1781629306089.png')],
             ['id' => 5, 'name' => 'Tropical Summer Dress', 'price' => 350000, 'img' => base_url('images/product_5_1781629315810.png')],
             ['id' => 6, 'name' => 'Tas Rotan Artisan', 'price' => 180000, 'img' => base_url('images/product_6_1781629329107.png')],
-            ['id' => 7, 'name' => 'Kain Motif Flora Bali', 'price' => 125000, 'img' => 'https://images.unsplash.com/photo-1542838334-42cf3558a2d1?q=80&w=1974&auto=format&fit=crop'],
-            ['id' => 8, 'name' => 'Setelan Piyama Rayon', 'price' => 210000, 'img' => 'https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=1964&auto=format&fit=crop'],
-            ['id' => 9, 'name' => 'Kain Pantai Sunset', 'price' => 95000, 'img' => 'https://images.unsplash.com/photo-1620799140408-edc6d5f9650d?q=80&w=1972&auto=format&fit=crop'],
+            ['id' => 7, 'name' => 'Kain Motif Flora Bali', 'price' => 125000, 'img' => base_url('images/product_7.png')],
+            ['id' => 8, 'name' => 'Setelan Piyama Rayon', 'price' => 210000, 'img' => base_url('images/product_8.png')],
+            ['id' => 9, 'name' => 'Kain Pantai Sunset', 'price' => 95000, 'img' => base_url('images/product_9.png')],
         ];
         foreach($dummy_products as $index => $prod): 
             $delay_class = '';

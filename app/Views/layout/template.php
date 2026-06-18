@@ -50,21 +50,20 @@
     <?php if(!isset($hide_nav)): ?>
     <!-- Luxury Footer -->
     <footer class="footer" style="position: relative; text-align: center; padding: 4rem 2rem;">
-        <div style="margin-bottom: 1.2rem;">
-            <!-- Symmetrical Floral Emblem -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-linecap="round" stroke-linejoin="round" style="width: 30px; height: 30px; opacity: 0.8; display: inline-block;">
-                <circle cx="12" cy="12" r="10" stroke-width="0.8" />
-                <circle cx="12" cy="12" r="8.2" stroke-width="0.5" stroke-dasharray="1.5 1.5" />
-                <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="0.8" />
-                <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="0.8" />
-                <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="0.8" />
-                <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="0.8" />
-                <path d="M6 6c1.2 1.2 2 2 2.8 1.6s.8-.8.8-1.2-1-1.2-2-2S6.5 5.2 6 6z" stroke-width="0.6" opacity="0.7" />
-                <path d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8-1.2 1-1.2 2-2 1.5-1.2 2-2z" stroke-width="0.6" opacity="0.7" />
-                <path d="M18 6c-1.2 1.2-2 2-2.8 1.6s-.8-.8-.8-1.2 1-1.2 2-2 1.5 1.2 2 2z" stroke-width="0.6" opacity="0.7" />
-                <path d="M6 18c1.2-1.2 2-2 2.8-1.6s.8.8.8 1.2-1 1.2-2-2-1.5-1.2-2 2z" stroke-width="0.6" opacity="0.7" />
-                <circle cx="12" cy="12" r="1.2" fill="var(--primary-color)" />
-            </svg>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 2.5rem; gap: 10px;">
+            <div style="width: 55px; height: 55px; margin-bottom: 10px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: 100%;">
+                    <circle cx="12" cy="12" r="10" stroke-width="1" />
+                    <circle cx="12" cy="12" r="7" stroke-width="0.5" stroke-dasharray="2 2" />
+                    <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="1" />
+                    <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="1" />
+                    <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="1" />
+                    <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="1" />
+                    <circle cx="12" cy="12" r="1.5" fill="var(--primary-color)" stroke="none" />
+                </svg>
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 3px; margin: 0; line-height: 1; color: var(--text-main);">BALI</h3>
+            <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 5px; color: var(--primary-color); margin-top: 4px;">ART HOUSE</span>
         </div>
         
         <!-- Footer Navigation Links -->

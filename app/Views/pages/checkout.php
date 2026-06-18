@@ -18,7 +18,7 @@
                 <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-color); border-bottom: 1px solid rgba(179,135,40,0.15); padding-bottom: 0.8rem; letter-spacing: 0.5px;">1. Detail Pengiriman (Pemesanan)</h2>
                 
                 <form id="checkout-form" onsubmit="handleCheckout(event)">
-                    <div class="responsive-grid-1-1" style="margin-bottom: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group" style="margin-bottom: 0;">
                             <label style="display: block; color: var(--text-color); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Nama Penerima</label>
                             <input type="text" required placeholder="Nama lengkap penerima" style="width: 100%; padding: 0.75rem 0.8rem; background: var(--bg-color); border: 1px solid rgba(0,0,0,0.12); font-size: 0.9rem; border-radius: 0; color: var(--text-color);">
@@ -34,7 +34,7 @@
                         <textarea required placeholder="Nama jalan, nomor rumah, RT/RW, Dusun" style="width: 100%; height: 100px; padding: 0.75rem 0.8rem; background: var(--bg-color); border: 1px solid rgba(0,0,0,0.12); font-family: var(--font-body); font-size: 0.9rem; border-radius: 0; resize: none; color: var(--text-color); outline: none; transition: var(--transition-premium);"></textarea>
                     </div>
 
-                    <div class="responsive-grid-1-1" style="margin-bottom: 1.5rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="input-group" style="margin-bottom: 0;">
                             <label style="display: block; color: var(--text-color); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem;">Kota / Kabupaten</label>
                             <input type="text" required placeholder="Contoh: Denpasar" style="width: 100%; padding: 0.75rem 0.8rem; background: var(--bg-color); border: 1px solid rgba(0,0,0,0.12); font-size: 0.9rem; border-radius: 0; color: var(--text-color);">

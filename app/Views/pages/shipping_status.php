@@ -11,7 +11,7 @@
         <p style="font-family: var(--font-body); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light);">Lacak proses produksi dan pengiriman pesanan Anda secara real-time</p>
     </div>
 
-    <div class="cart-flat-container">
+    <div class="cart-flat-container" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem;">
         
         <!-- Left Column: Shipping Tracking Timeline -->
         <div class="cart-flat-items reveal" style="background: var(--bg-card); border: var(--border-gold); padding: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">

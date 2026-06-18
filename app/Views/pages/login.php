@@ -16,231 +16,307 @@
         body {
             margin: 0;
             padding: 0;
+            display: flex;
             min-height: 100vh;
             font-family: var(--font-body);
             background-color: var(--bg-color);
+            overflow: hidden;
+        }
+
+        /* 50% Left: Clear Image Visual Panel */
+        .login-visual-panel {
+            flex: 1;
+            position: relative;
             background-image: url('<?= base_url("images/login_hero_1781631706752.png") ?>');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            border-right: var(--border-gold);
+            overflow: hidden;
         }
 
-        body::before {
+        .login-visual-panel::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
             z-index: 1;
         }
 
-        .auth-card {
+        .login-brand-wrapper {
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.95);
+            text-align: center;
+            padding: 3rem 2.5rem;
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: var(--border-gold);
-            padding: 3.5rem 2.5rem;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            text-align: center;
-            margin: 2rem 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            max-width: 380px;
+            width: 90%;
         }
 
-        .auth-logo {
-            width: 60px;
-            height: 60px;
+        .login-brand-logo {
+            width: 80px;
+            height: 80px;
             fill: var(--primary-color);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .auth-card h1 {
+        .login-brand-wrapper h2 {
             font-family: var(--font-heading);
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--text-color);
-            margin-bottom: 0.5rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 0.4rem;
         }
 
-        .auth-card p.subtitle {
+        .login-brand-wrapper h2 span {
+            color: var(--primary-color);
+        }
+
+        .login-brand-wrapper p {
             color: var(--text-light);
-            font-size: 0.85rem;
-            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
-        .auth-form {
-            text-align: left;
+        /* 50% Right: Minimal Form */
+        .login-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            background: var(--bg-card);
+            z-index: 5;
         }
 
-        .auth-input-group {
-            margin-bottom: 1.5rem;
+        .login-form-wrapper {
+            width: 100%;
+            max-width: 380px;
             position: relative;
         }
 
-        .auth-input-group label {
-            display: block;
-            font-size: 0.75rem;
+        .login-form-wrapper h1 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-color);
+        }
+
+        .login-form-wrapper p.subtitle {
             color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
 
-        .auth-input-group input {
+        .input-group input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            padding-left: 2.8rem;
-            border: 1px solid rgba(0,0,0,0.15);
-            background: transparent;
-            font-size: 0.95rem;
-            font-family: var(--font-body);
+            padding: 0.75rem 0.5rem;
+            background: var(--bg-color);
+            border: 1px solid rgba(0,0,0,0.12);
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: var(--transition-premium);
+            border-radius: 0;
+        }
+
+        .input-group input:focus {
             outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .auth-input-group input:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 1px var(--primary-color);
+            background: #ffffff;
         }
 
-        .auth-input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 2.1rem;
-            width: 18px;
-            height: 18px;
-            color: var(--text-light);
-        }
-
-        .auth-options {
+        .login-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            font-size: 0.8rem;
-        }
-
-        .auth-options a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .auth-options a:hover {
-            text-decoration: underline;
-        }
-
-        .btn-auth {
-            width: 100%;
-            padding: 1rem;
+            margin-bottom: 2.5rem;
             font-size: 0.9rem;
-            letter-spacing: 2px;
-        }
-
-        .auth-footer {
-            margin-top: 2rem;
-            font-size: 0.85rem;
             color: var(--text-light);
         }
 
-        .auth-footer a {
+        .login-actions a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
+            transition: var(--transition-premium);
         }
 
-        .auth-footer a:hover {
-            text-decoration: underline;
+        .login-actions a:hover {
+            color: var(--primary-dark);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: 1px solid var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition-premium);
+            font-weight: 600;
+        }
+
+        .btn-submit:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: transparent;
         }
 
         .back-home {
             position: absolute;
             top: 2rem;
-            left: 2rem;
-            z-index: 10;
-            color: #fff;
+            right: 3rem;
+            color: var(--text-light);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
             font-weight: 500;
-            transition: opacity 0.3s;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: var(--transition-premium);
+            z-index: 10;
         }
 
         .back-home:hover {
-            opacity: 0.8;
+            color: var(--text-color);
+            transform: translateX(-2px);
         }
 
-        @media (max-width: 480px) {
-            .auth-card {
-                padding: 2.5rem 1.5rem;
+        @media (max-width: 992px) {
+            body {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            .login-visual-panel {
+                min-height: 300px;
+                flex: none;
+            }
+            .login-content {
+                padding: 3rem 1.5rem;
+                flex: none;
             }
             .back-home {
-                top: 1rem;
-                left: 1rem;
+                right: 1.5rem;
+                top: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- Left Side -->
+<div class="login-visual-panel"></div>
+
+<!-- Right Side -->
+<div class="login-content">
     <a href="<?= base_url('/') ?>" class="back-home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Kembali
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        Tutup
     </a>
 
-    <div class="auth-card">
-        <svg class="auth-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10" stroke-width="0.8" />
-            <circle cx="12" cy="12" r="8.2" stroke-width="0.5" stroke-dasharray="1.5 1.5" />
-            <path d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" stroke-width="0.8" />
-            <path d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" stroke-width="0.8" />
-            <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="0.8" />
-            <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="0.8" />
-            <circle cx="12" cy="12" r="1.2" fill="currentColor" />
-        </svg>
-
-        <h1>Selamat Datang</h1>
-        <p class="subtitle">Silakan masuk ke akun Anda</p>
-
-        <form action="<?= base_url('/') ?>" method="GET" class="auth-form">
-            <div class="auth-input-group">
-                <label>Email</label>
-                <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                <input type="email" placeholder="nama@email.com" required>
+    <div class="login-form-wrapper">
+        <div style="text-align: center; margin-bottom: 2.2rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div class="logo-icon-wrapper" style="width: 50px; height: 50px; margin-bottom: 0.8rem; border-color: rgba(179, 135, 40, 0.25); background: rgba(179, 135, 40, 0.02); display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-svg" style="width: 32px; height: 32px;">
+                    <circle cx="12" cy="12" r="10" class="icon-ring" />
+                    <circle cx="12" cy="12" r="8.2" class="icon-ring-inner" stroke-dasharray="1.5 1.5" />
+                    <path class="icon-petal" d="M12 3.5c.8 2 1.5 3.5 1.5 5S12.8 10 12 10s-1.5-1-1.5-1.5 1.5-3 1.5-5z" />
+                    <path class="icon-petal" d="M12 20.5c.8-2 1.5-3.5 1.5-5s-.7-1.5-1.5-1.5-1.5 1-1.5 1.5 1.5 3 1.5 5z" />
+                    <path class="icon-petal" d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" />
+                    <path class="icon-petal" d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" />
+                    <path class="icon-petal-diagonal" d="M6 6c1.2 1.2 2 2 2.8 1.6s.8-.8.8-1.2-1-1.2-2-2S6.5 5.2 6 6z" />
+                    <path class="icon-petal-diagonal" d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8 1.2 1 1.2 2 2 1.5-1.2 2-2z" />
+                    <path class="icon-petal-diagonal" d="M18 6c-1.2 1.2-2 2-2.8 1.6s-.8-.8-.8-1.2 1-1.2 2-2 1.5 1.2 2 2z" />
+                    <path class="icon-petal-diagonal" d="M6 18c1.2-1.2 2-2 2.8-1.6s.8.8.8 1.2-1 1.2-2-2-1.5-1.2-2 2z" />
+                    <circle cx="12" cy="12" r="1.2" fill="currentColor" class="icon-center-dot" />
+                </svg>
             </div>
+            <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 5px; color: var(--text-color); margin-bottom: 0.1rem; line-height: 1;">BALI</h2>
+            <p style="font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--primary-color); margin-bottom: 0.6rem;">ART HOUSE</p>
+            <p style="font-family: var(--font-body); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-light);">Cetak Kain & Busana Premium</p>
+        </div>
+        <h1 style="font-size: 2rem; margin-bottom: 1.5rem; text-align: center;">Masuk Akun</h1>
 
-            <div class="auth-input-group">
+        <?php if(session()->getFlashdata('error')): ?>
+            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 1rem; border: 1px solid #f5c6cb; text-align: center; font-size: 0.9rem;">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+        <?php if(session()->getFlashdata('success')): ?>
+            <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 1rem; border: 1px solid #c3e6cb; text-align: center; font-size: 0.9rem;">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('auth/processLogin') ?>" method="POST">
+            <?= csrf_field() ?>
+            <div class="input-group">
+                <label>Alamat E-mail</label>
+                <input type="email" name="email" required placeholder="nama@email.com">
+            </div>
+            
+            <div class="input-group">
                 <label>Kata Sandi</label>
-                <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <input type="password" placeholder="••••••••" required>
+                <input type="password" name="password" required placeholder="••••••••">
             </div>
 
-            <div class="auth-options">
-                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                    <input type="checkbox" style="accent-color: var(--primary-color);"> Ingat Saya
+            <div class="login-actions">
+                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                    <input type="checkbox" style="width:16px; height:16px; accent-color: var(--primary-color);">
+                    Ingat Saya
                 </label>
-                <a href="#">Lupa Kata Sandi?</a>
+                <a href="#">Lupa Sandi?</a>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-auth">MASUK SEKARANG</button>
+            <button type="submit" class="btn-submit">
+                Masuk
+            </button>
         </form>
 
-        <div class="auth-footer">
-            Belum punya akun? <a href="<?= base_url('/register') ?>">Daftar Baru</a>
+        <div style="margin-top: 2rem; text-align: center; font-size: 0.85rem; color: var(--text-light);">
+            Belum memiliki akun? <a href="<?= base_url('/register') ?>" style="color: var(--primary-color); text-decoration: none; font-weight: 600; transition: var(--transition-premium);">Daftar Sekarang</a>
         </div>
     </div>
+</div>
+
+<!-- Simple Loading Fade In -->
+<script>
+window.addEventListener('load', () => {
+    // Simple loader dismiss
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        preloader.classList.add('loaded');
+    }
+});
+</script>
 
 </body>
 </html>

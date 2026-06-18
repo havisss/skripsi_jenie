@@ -57,9 +57,9 @@
                 </form>
             </div>
             
-            <a href="<?= base_url('/cart') ?>" class="cf-continue">
+            <a href="<?= base_url('/catalog') ?>" class="cf-continue">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Kembali ke Keranjang
+                Kembali ke Katalog
             </a>
         </div>
 
@@ -71,21 +71,21 @@
                 <div class="cf-summary-details">
                     <div class="cf-summary-row">
                         <span>Subtotal</span>
-                        <span>Rp 560.000</span>
+                        <span id="co-subtotal">Rp 0</span>
                     </div>
                     <div class="cf-summary-row">
                         <span>Pajak Layanan (10%)</span>
-                        <span>Rp 56.000</span>
+                        <span id="co-tax">Rp 0</span>
                     </div>
                     <div class="cf-summary-row">
                         <span>Ongkos Kirim (Flat)</span>
-                        <span>Rp 22.000</span>
+                        <span id="co-shipping">Rp 0</span>
                     </div>
                 </div>
 
                 <div class="cf-summary-total" style="border-top: 1.5px solid var(--primary-color); padding-top: 1.2rem; margin-top: 1.2rem; margin-bottom: 2rem;">
                     <span>Total Bayar</span>
-                    <span style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem;">Rp 638.000</span>
+                    <span id="co-total" style="color: var(--primary-color); font-weight: 700; font-size: 1.25rem;">Rp 0</span>
                 </div>
 
                 <!-- 2. Transfer Bank (Pembayaran) -->
@@ -116,10 +116,66 @@
 </div>
 
 <script>
+let finalTotal = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    let cartData = JSON.parse(localStorage.getItem('tropical_cart') || '[]');
+    let subtotal = 0;
+    
+    // Check if there is a direct checkout item (bypasses cart)
+    let directPrice = sessionStorage.getItem('direct_checkout_price');
+    let directName = sessionStorage.getItem('direct_checkout_name');
+    
+    if (directPrice) {
+        subtotal = parseInt(directPrice);
+        // We could also dynamically update a list item here if we wanted to show the name
+    } else {
+        // Check if there is a pending custom order in session storage
+        let customOrderPrice = sessionStorage.getItem('pending_custom_order_price');
+        if(customOrderPrice) {
+            subtotal += parseInt(customOrderPrice);
+        }
+        
+        // Add regular cart items
+        cartData.forEach(item => {
+            subtotal += (item.price * item.qty);
+        });
+    }
+    
+    let tax = subtotal * 0.10;
+    let shipping = subtotal > 0 ? 22000 : 0;
+    finalTotal = subtotal + tax + shipping;
+    
+    document.getElementById('co-subtotal').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+    document.getElementById('co-tax').innerText = 'Rp ' + tax.toLocaleString('id-ID');
+    document.getElementById('co-shipping').innerText = 'Rp ' + shipping.toLocaleString('id-ID');
+    document.getElementById('co-total').innerText = 'Rp ' + finalTotal.toLocaleString('id-ID');
+    
+    if (finalTotal === 0) {
+        alert('Keranjang belanja Anda masih kosong. Silakan tambahkan produk terlebih dahulu.');
+        window.location.href = '<?= base_url('/catalog') ?>';
+    }
+});
+
 function handleCheckout(event) {
     event.preventDefault();
-    alert('Pemesanan Berhasil Disimpan!\n\nSilakan lakukan transfer sebesar Rp 638.000 ke salah satu rekening Bank Bali Art House tertera. Anda akan dialihkan ke halaman Konfirmasi Pembayaran untuk mengunggah bukti transfer.');
-    window.location.href = '<?= base_url('/confirm-payment') ?>';
+    if (finalTotal === 0) {
+        alert('Keranjang belanja Anda masih kosong. Silakan tambahkan produk terlebih dahulu.');
+        window.location.href = '<?= base_url('/catalog') ?>';
+        return;
+    }
+    alert('Pemesanan Berhasil Disimpan!\n\nSilakan lakukan transfer sebesar Rp ' + finalTotal.toLocaleString('id-ID') + ' ke salah satu rekening Bank Bali Art House tertera. Anda akan dialihkan ke halaman Riwayat Transaksi.');
+    
+    // Clear cart and sessions only if it was a direct checkout or standard checkout
+    if (sessionStorage.getItem('direct_checkout_price')) {
+        sessionStorage.removeItem('direct_checkout_price');
+        sessionStorage.removeItem('direct_checkout_name');
+    } else {
+        localStorage.removeItem('tropical_cart');
+        sessionStorage.removeItem('pending_custom_order_price');
+    }
+    
+    window.location.href = '<?= base_url('/transaction-history') ?>';
 }
 </script>
 

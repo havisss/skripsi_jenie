@@ -39,12 +39,15 @@
         </div>
     </div>
 
+    <?php if(!isset($hide_nav)): ?>
     <?= $this->include('layout/navbar') ?>
+    <?php endif; ?>
 
     <main class="page-wrapper">
         <?= $this->renderSection('content') ?>
     </main>
 
+    <?php if(!isset($hide_nav)): ?>
     <!-- Luxury Footer -->
     <footer class="footer" style="position: relative; text-align: center; padding: 4rem 2rem;">
         <div style="margin-bottom: 1.2rem;">
@@ -57,7 +60,7 @@
                 <path d="M3.5 12c2 .8 3.5 1.5 5 1.5s1.5-.7 1.5-1.5-1-1.5-1.5-1.5-3 1.5-5 1.5z" stroke-width="0.8" />
                 <path d="M20.5 12c-2 .8-3.5 1.5-5 1.5s-1.5-.7-1.5-1.5 1-1.5 1.5-1.5 3 1.5 5 1.5z" stroke-width="0.8" />
                 <path d="M6 6c1.2 1.2 2 2 2.8 1.6s.8-.8.8-1.2-1-1.2-2-2S6.5 5.2 6 6z" stroke-width="0.6" opacity="0.7" />
-                <path d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8 1.2 1 1.2 2 2 1.5-1.2 2-2z" stroke-width="0.6" opacity="0.7" />
+                <path d="M18 18c-1.2-1.2-2-2-2.8-1.6s-.8.8-.8-1.2 1-1.2 2-2 1.5-1.2 2-2z" stroke-width="0.6" opacity="0.7" />
                 <path d="M18 6c-1.2 1.2-2 2-2.8 1.6s-.8-.8-.8-1.2 1-1.2 2-2 1.5 1.2 2 2z" stroke-width="0.6" opacity="0.7" />
                 <path d="M6 18c1.2-1.2 2-2 2.8-1.6s.8.8.8 1.2-1 1.2-2-2-1.5-1.2-2 2z" stroke-width="0.6" opacity="0.7" />
                 <circle cx="12" cy="12" r="1.2" fill="var(--primary-color)" />
@@ -76,6 +79,7 @@
         <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; color: var(--text-light);">&copy; 2026 Bali Art House Print</p>
         <p style="font-family: var(--font-heading); font-style: italic; color: var(--primary-color); font-size: 1.1rem; margin-top: 0.5rem;">Handcrafted in the Island of Gods, Bali</p>
     </footer>
+    <?php endif; ?>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -107,6 +111,25 @@
                 qtyInput.dispatchEvent(new Event('change'));
             }
         };
+
+        // --- 5. Mobile Menu Toggle ---
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navCollapse = document.querySelector('.nav-collapse');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const closeIcon = document.querySelector('.close-icon');
+
+        if (menuToggle && navCollapse) {
+            menuToggle.addEventListener('click', function() {
+                navCollapse.classList.toggle('active');
+                if (navCollapse.classList.contains('active')) {
+                    hamburgerIcon.style.display = 'none';
+                    closeIcon.style.display = 'block';
+                } else {
+                    hamburgerIcon.style.display = 'block';
+                    closeIcon.style.display = 'none';
+                }
+            });
+        }
     });
 
     // --- 3. Navbar Scrolling ---

@@ -29,6 +29,7 @@ $routes->get('logout', 'AuthController::logout');
 $routes->post('cart/add', 'CartController::add');
 $routes->post('cart/update', 'CartController::update');
 $routes->post('cart/remove', 'CartController::remove');
+$routes->get('cart/api_get', 'CartController::api_get');
 $routes->post('order/process', 'OrderController::processCheckout');
 
 // Admin Routes

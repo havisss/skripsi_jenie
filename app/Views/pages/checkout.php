@@ -18,6 +18,7 @@
                 <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-color); border-bottom: 1px solid rgba(179,135,40,0.15); padding-bottom: 0.8rem; letter-spacing: 0.5px;">1. Detail Pengiriman (Pemesanan)</h2>
                 
                 <form id="checkout-form" method="POST" action="<?= base_url('/order/process') ?>">
+                    <?= csrf_field() ?>
                     <input type="hidden" name="is_cart_checkout" value="<?= esc($is_cart_checkout) ?>">
                     
                     <div style="margin-bottom: 2rem;">

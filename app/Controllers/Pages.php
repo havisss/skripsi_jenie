@@ -28,6 +28,56 @@ class Pages extends BaseController
         return view('pages/catalog', $data);
     }
 
+    /**
+     * Menampilkan halaman Custom Order
+     */
+    public function custom()
+    {
+        $produkModel = new \App\Models\ProdukModel();
+        $data = [
+            'title' => 'Custom Order | TropicalShop',
+            'produk' => $produkModel->findAll()
+        ];
+        return view('pages/custom', $data);
+    }
+
+    /**
+     * Memproses form Custom Order
+     */
+    public function processCustom()
+    {
+        $session = session();
+        if (!$session->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        $id_produk = $this->request->getPost('id_produk');
+        $jumlah = $this->request->getPost('jumlah') ?: 1;
+        $warna = $this->request->getPost('warna');
+        $ukuran = $this->request->getPost('ukuran');
+
+        $kustomModel = new \App\Models\KustomisasiModel();
+        
+        $kustomData = [
+            'id_produk' => $id_produk,
+            'warna' => $warna,
+            'ukuran' => $ukuran,
+            'jumlah' => $jumlah
+        ];
+
+        // Handling file upload for url_gambar if any
+        $fileGambar = $this->request->getFile('gambar');
+        if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {
+            $newName = $fileGambar->getRandomName();
+            $fileGambar->move('uploads/kustom', $newName);
+            $kustomData['url_gambar'] = 'uploads/kustom/' . $newName;
+        }
+
+        $id_kustom = $kustomModel->insert($kustomData);
+
+        return redirect()->to('/checkout?id_kustom=' . $id_kustom);
+    }
+
 
 
     /**
@@ -78,6 +128,7 @@ class Pages extends BaseController
     public function checkout()
     {
         $id_produk = $this->request->getGet('id_produk');
+        $id_kustom = $this->request->getGet('id_kustom');
         $jumlah = $this->request->getGet('jumlah') ?: 1;
         $id_pelanggan = session()->get('id_pelanggan');
 
@@ -85,7 +136,26 @@ class Pages extends BaseController
         $subtotal = 0;
         $is_cart_checkout = 0;
 
-        if ($id_produk) {
+        if ($id_kustom) {
+            // Jalur Custom Order
+            $kustomModel = new \App\Models\KustomisasiModel();
+            $kustom = $kustomModel->select('kustomisasi.*, produk.nama_produk, produk.harga')
+                                  ->join('produk', 'produk.id_produk = kustomisasi.id_produk')
+                                  ->find($id_kustom);
+            if (!$kustom) return redirect()->to('/catalog');
+
+            $checkout_items[] = [
+                'id_cart' => null,
+                'id_produk' => $kustom['id_produk'],
+                'id_kustom' => $kustom['id_kustom'],
+                'nama_produk' => $kustom['nama_produk'] . ' (Custom: ' . esc($kustom['warna']) . ', ' . esc($kustom['ukuran']) . ')',
+                'url_gambar' => $kustom['url_gambar'] ? $kustom['url_gambar'] : '',
+                'harga' => $kustom['harga'],
+                'jumlah' => $kustom['jumlah']
+            ];
+            $subtotal = $kustom['harga'] * $kustom['jumlah'];
+            $is_cart_checkout = 0;
+        } else if ($id_produk) {
             // Jalur Beli Langsung
             $produkModel = new \App\Models\ProdukModel();
             $produk = $produkModel->find($id_produk);
@@ -94,6 +164,7 @@ class Pages extends BaseController
             $checkout_items[] = [
                 'id_cart' => null, // null berarti bukan dari keranjang
                 'id_produk' => $produk['id_produk'],
+                'id_kustom' => null,
                 'nama_produk' => $produk['nama_produk'],
                 'url_gambar' => $produk['url_gambar'],
                 'harga' => $produk['harga'],
@@ -104,13 +175,22 @@ class Pages extends BaseController
         } else {
             // Jalur Checkout Keranjang
             $cartModel = new \App\Models\CartModel();
-            $checkout_items = $cartModel->getCartWithProducts($id_pelanggan);
+            $cart_items = $cartModel->getCartWithProducts($id_pelanggan);
 
-            if(empty($checkout_items)) {
+            if(empty($cart_items)) {
                 return redirect()->to('/catalog');
             }
 
-            foreach($checkout_items as $item) {
+            foreach($cart_items as $item) {
+                $checkout_items[] = [
+                    'id_cart' => $item['id_cart'],
+                    'id_produk' => $item['id_produk'],
+                    'id_kustom' => null,
+                    'nama_produk' => $item['nama_produk'],
+                    'url_gambar' => $item['url_gambar'],
+                    'harga' => $item['harga'],
+                    'jumlah' => $item['jumlah']
+                ];
                 $subtotal += ($item['harga'] * $item['jumlah']);
             }
             $is_cart_checkout = 1;

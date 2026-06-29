@@ -16,6 +16,7 @@
             <ul class="nav-menu">
                 <li><a href="<?= base_url('/') ?>" class="nav-item <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
                 <li><a href="<?= base_url('/catalog') ?>" class="nav-item <?= ($uri == 'catalog' ? 'active' : '') ?>">Catalog</a></li>
+                <li><a href="<?= base_url('/custom') ?>" class="nav-item <?= ($uri == 'custom' ? 'active' : '') ?>">Custom</a></li>
 
                 <li><a href="<?= base_url('/company-info') ?>" class="nav-item <?= ($uri == 'company-info' ? 'active' : '') ?>">About Us</a></li>
             </ul>
@@ -52,6 +53,7 @@
         <ul class="mobile-nav-menu">
             <li><a href="<?= base_url('/') ?>" class="mobile-nav-item <?= ($uri == '' ? 'active' : '') ?>">Home</a></li>
             <li><a href="<?= base_url('/catalog') ?>" class="mobile-nav-item <?= ($uri == 'catalog' ? 'active' : '') ?>">Catalog</a></li>
+            <li><a href="<?= base_url('/custom') ?>" class="mobile-nav-item <?= ($uri == 'custom' ? 'active' : '') ?>">Custom</a></li>
 
             <li><a href="<?= base_url('/company-info') ?>" class="mobile-nav-item <?= ($uri == 'company-info' ? 'active' : '') ?>">About Us</a></li>
         </ul>

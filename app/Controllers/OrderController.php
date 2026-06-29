@@ -24,6 +24,7 @@ class OrderController extends BaseController
         
         $is_cart_checkout = $this->request->getPost('is_cart_checkout');
         $id_produk_arr = $this->request->getPost('id_produk');
+        $id_kustom_arr = $this->request->getPost('id_kustom');
         $jumlah_arr = $this->request->getPost('jumlah');
         
         if (empty($id_produk_arr)) {
@@ -37,12 +38,14 @@ class OrderController extends BaseController
         for ($i = 0; $i < count($id_produk_arr); $i++) {
             $id_p = $id_produk_arr[$i];
             $qty = $jumlah_arr[$i];
+            $id_k = isset($id_kustom_arr[$i]) && !empty($id_kustom_arr[$i]) ? $id_kustom_arr[$i] : null;
             
             $produkDb = $produkModel->find($id_p);
             if ($produkDb) {
                 $subtotal += ($produkDb['harga'] * $qty);
                 $order_items[] = [
                     'id_produk' => $id_p,
+                    'id_kustom' => $id_k,
                     'jumlah' => $qty,
                     'harga_satuan' => $produkDb['harga'],
                     'stok_lama' => $produkDb['jumlah']
@@ -72,7 +75,7 @@ class OrderController extends BaseController
             $pesananDetailModel->insert([
                 'id_pesan' => $id_pesan,
                 'id_produk' => $item['id_produk'],
-                'id_kustom' => null, // Sesuai dengan bawaan
+                'id_kustom' => $item['id_kustom'],
                 'jumlah' => $item['jumlah'],
                 'harga_satuan' => $item['harga_satuan']
             ]);

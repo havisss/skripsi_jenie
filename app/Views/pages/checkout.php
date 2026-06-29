@@ -39,6 +39,7 @@
                             
                             <input type="hidden" name="id_produk[]" value="<?= esc($item['id_produk']) ?>">
                             <input type="hidden" name="id_cart[]" value="<?= esc($item['id_cart'] ?? '') ?>">
+                            <input type="hidden" name="id_kustom[]" value="<?= esc($item['id_kustom'] ?? '') ?>">
                         </div>
                         <?php endforeach; ?>
                     </div>

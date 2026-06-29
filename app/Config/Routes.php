@@ -11,6 +11,8 @@ $routes->get('/', 'Pages::index');
 $routes->get('catalog', 'Pages::catalog'); 
 
 $routes->get('company-info', 'Pages::companyInfo');
+$routes->get('custom', 'Pages::custom', ['filter' => 'auth']);
+$routes->post('custom/process', 'Pages::processCustom', ['filter' => 'auth']);
 $routes->get('login', 'Pages::login');
 $routes->get('register', 'Pages::register');
 $routes->get('cart', 'Pages::cart', ['filter' => 'auth']);

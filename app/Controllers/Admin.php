@@ -25,12 +25,76 @@ class Admin extends BaseController
     {
         $pesananModel = new PesananModel();
         $produkModel = new ProdukModel();
-        
+        $db = \Config\Database::connect();
+
+        // 1. Total Pesanan & Total Produk
+        $total_pesanan = $pesananModel->countAllResults();
+        $total_produk = $produkModel->countAllResults();
+
+        // 2. Pesanan Pending (dari template lama, status Pending)
+        $pesanan_pending = $pesananModel->where('status', 'Pending')->countAllResults();
+        $pesanan_baru = $pesananModel->whereIn('status', ['Pending', 'Menunggu Konfirmasi'])->countAllResults();
+
+        // 3. Total Pendapatan (Status selain Pending, Menunggu Konfirmasi, Batal)
+        $total_pendapatan = $pesananModel->whereNotIn('status', ['Pending', 'Menunggu Konfirmasi', 'Batal'])
+                                         ->selectSum('total_harga')
+                                         ->first()['total_harga'] ?? 0;
+
+        // 4. Rata-rata Belanja (AOV)
+        $rata_rata_belanja = $pesananModel->whereNotIn('status', ['Pending', 'Menunggu Konfirmasi', 'Batal'])
+                                          ->selectAvg('total_harga')
+                                          ->first()['total_harga'] ?? 0;
+
+        // 5. Produk Stok Tipis (< 5)
+        $stok_tipis = $produkModel->where('jumlah <', 5)->findAll();
+        $total_stok_tipis = count($stok_tipis);
+
+        // 6. Pesanan Terbaru (5 Teratas)
+        $pesanan_terbaru = $pesananModel->getPesananWithDetails();
+        $pesanan_terbaru = array_slice($pesanan_terbaru, 0, 5);
+
+        // 7. Produk Terlaris
+        $produk_terlaris = $db->table('pesanan_detail')
+            ->select('produk.nama_produk, SUM(pesanan_detail.jumlah) as total_terjual, produk.harga, produk.url_gambar')
+            ->join('produk', 'produk.id_produk = pesanan_detail.id_produk')
+            ->join('pesanan', 'pesanan.id_pesan = pesanan_detail.id_pesan')
+            ->whereNotIn('pesanan.status', ['Pending', 'Menunggu Konfirmasi', 'Batal'])
+            ->groupBy('pesanan_detail.id_produk')
+            ->orderBy('total_terjual', 'DESC')
+            ->limit(5)
+            ->get()
+            ->getResultArray();
+
+        // 8. Tren Penjualan 7 Hari Terakhir
+        $chart_labels = [];
+        $chart_data = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = date('Y-m-d', strtotime("-$i days"));
+            $label = date('d M', strtotime($date));
+            
+            $total = $pesananModel->where('DATE(tanggal_pesan) =', $date)
+                                  ->whereNotIn('status', ['Pending', 'Menunggu Konfirmasi', 'Batal'])
+                                  ->selectSum('total_harga')
+                                  ->first()['total_harga'] ?? 0;
+            
+            $chart_labels[] = $label;
+            $chart_data[] = (int) $total;
+        }
+
         $data = [
-            'title' => 'Dashboard',
-            'total_pesanan' => count($pesananModel->findAll()),
-            'total_produk' => count($produkModel->findAll()),
-            'pesanan_baru' => count($pesananModel->where('status', 'Pending')->findAll())
+            'title'             => 'Dashboard',
+            'total_pesanan'     => $total_pesanan,
+            'total_produk'      => $total_produk,
+            'pesanan_pending'   => $pesanan_pending,
+            'pesanan_baru'      => $pesanan_baru,
+            'total_pendapatan'  => $total_pendapatan,
+            'rata_rata_belanja' => $rata_rata_belanja,
+            'total_stok_tipis'  => $total_stok_tipis,
+            'stok_tipis'        => $stok_tipis,
+            'pesanan_terbaru'   => $pesanan_terbaru,
+            'produk_terlaris'   => $produk_terlaris,
+            'chart_labels'      => json_encode($chart_labels),
+            'chart_data'        => json_encode($chart_data)
         ];
         
         return view('admin/dashboard', $data);

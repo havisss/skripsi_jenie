@@ -3,7 +3,7 @@
     <div class="nav-container">
         <!-- LEFT: LOGO -->
         <div class="nav-left">
-            <a href="<?= base_url('/') ?>" class="nav-logo" style="display: flex; align-items: center; text-decoration: none; padding: 5px 0;">
+            <a href="<?= base_url('/') ?>" class="nav-brand">
                 <div style="display: flex; align-items: baseline; gap: 6px;">
                     <span class="nav-brand-title">BALI</span>
                     <span class="nav-brand-title" style="font-weight: 400;">ART HOUSE</span>
@@ -37,7 +37,7 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </a>
                 <?php endif; ?>
-                <a href="#" class="nav-icon cart-icon" onclick="openOffcanvasCart(); return false;" title="Keranjang">
+                <a href="#" class="action-btn" onclick="openOffcanvasCart(); return false;" title="Keranjang">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 </a>
             </div>
